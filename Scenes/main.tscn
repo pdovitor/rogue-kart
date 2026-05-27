@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://hvkg764oev3x"]
+
+[ext_resource type="PackedScene" uid="uid://dc21ufy5yyg04" path="res://Scenes/car.tscn" id="1_jjgbg"]
+[ext_resource type="PackedScene" uid="uid://drbxd1hwg18s1" path="res://Assets/SouthLoop.glb" id="2_bo1nx"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bo1nx"]
+
+[sub_resource type="Sky" id="Sky_8gbba"]
+sky_material = SubResource("ProceduralSkyMaterial_bo1nx")
+
+[sub_resource type="Environment" id="Environment_jjvhh"]
+background_mode = 2
+sky = SubResource("Sky_8gbba")
+ambient_light_source = 3
+ambient_light_color = Color(0.89145625, 0.89145625, 0.8914562, 1)
+ambient_light_energy = 16.0
+reflected_light_source = 2
+
+[node name="Node3D" type="Node3D" unique_id=277975496]
+
+[node name="Car" parent="." unique_id=1073571490 instance=ExtResource("1_jjgbg")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 38.20788, 0.62139726, -0.11802411)
+
+[node name="SouthLoop" parent="." unique_id=1666833088 instance=ExtResource("2_bo1nx")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=840894363]
+environment = SubResource("Environment_jjvhh")
