@@ -342,4 +342,4 @@ shape = SubResource("ConcavePolygonShape3D_fj0dj")
 environment = SubResource("Environment_jjvhh")
 
 [node name="Car" parent="." unique_id=1073571490 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33.642803, 3.702812, 91.07372)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.901012, 2.9658966, 82.224434)

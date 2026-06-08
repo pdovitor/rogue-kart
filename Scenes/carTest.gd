@@ -28,8 +28,16 @@ func _physics_process(_delta):
 	Ball.apply_central_force(-Car.global_transform.basis.z * speed_input * Boost)
 	
 func _process(delta):
-	speed_input = (Input.get_action_strength("Accelerate") - Input.get_action_strength("Brake")) * acceleration
-	rotate_input = deg_to_rad(steering) * (Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right"))
+	speed_input = (Input.get_action_strength("Accelerate") - Input.get_action_strength("Brake")) * acceleration #
+	
+	# Captura a intenção de curva do jogador (-1 para direita, 1 para esquerda)
+	var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right") #
+	
+	# Se o speed_input for menor que 0, inverte a direção já que esta dando ré
+	if speed_input < 0:
+		steer_direction = -steer_direction
+
+	rotate_input = deg_to_rad(steering) * steer_direction
 	RightWheel.rotation.y = rotate_input
 	LeftWheel.rotation.y = rotate_input
 	
@@ -37,9 +45,12 @@ func _process(delta):
 		StartDrift()
 
 	if Drifting:
-		var DriftAmount = 0
-		DriftAmount += Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
-		DriftAmount *= deg_to_rad(steering * 0.55)
+		# Captura o comando de direção puro sem a inversão da ré já que não faz drift de ré
+		var raw_steer = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
+		
+		# quanto maior o driftamount mais fechada é a curva
+		var DriftAmount = raw_steer * deg_to_rad(steering * 0.67) #six seven
+		
 		rotate_input = DriftDirection + DriftAmount
 
 	if Drifting and (Input.is_action_just_released("Drift") or speed_input < 1):
