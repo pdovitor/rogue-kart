@@ -1,6 +1,7 @@
 [gd_scene format=4 uid="uid://hvkg764oev3x"]
 
 [ext_resource type="PackedScene" uid="uid://dc21ufy5yyg04" path="res://Scenes/car.tscn" id="1_jjgbg"]
+[ext_resource type="Script" uid="uid://cmpsqjgjsrvny" path="res://Scenes/main.gd" id="1_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://d21upgo46s6lq" path="res://Assets/SouthLoop_Image_0.png" id="2_344ge"]
 [ext_resource type="Texture2D" uid="uid://bnu7ekigago03" path="res://Assets/SouthLoop_Image_1.png" id="3_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://c3k2aqppkyst4" path="res://Assets/SouthLoop_Image_2.png" id="4_hptm8"]
@@ -308,6 +309,7 @@ ambient_light_energy = 16.0
 reflected_light_source = 2
 
 [node name="Node3D" type="Node3D" unique_id=277975496]
+script = ExtResource("1_ynf5e")
 
 [node name="SouthLoop" type="Node3D" parent="." unique_id=1666833088]
 
@@ -343,3 +345,11 @@ environment = SubResource("Environment_jjvhh")
 
 [node name="Car" parent="." unique_id=1073571490 instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.901012, 2.9658966, 82.224434)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=23873339]
+
+[node name="LabelVelocidade" type="Label" parent="CanvasLayer" unique_id=1733592579]
+offset_right = 40.0
+offset_bottom = 23.0
+size_flags_horizontal = 4
+size_flags_vertical = 0

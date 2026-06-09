@@ -9,7 +9,9 @@ extends Node3D
 @onready var BoostTimer = $BoostTimer
 @onready var Anim = $AnimationPlayer
 
-var acceleration = 70.0
+var velocidade_kmh: int = 0
+
+var acceleration =80.0
 var steering = 12.0
 var turn_speed = 5
 var body_tilt = 30
@@ -56,6 +58,9 @@ func _process(delta):
 	if Drifting and (Input.is_action_just_released("Drift") or speed_input < 1):
 		StopDrift()
 		
+	var velocidade_atual = Ball.linear_velocity.length()
+	velocidade_kmh = round(velocidade_atual * 3.6)
+	
 	if Ball.linear_velocity.length() > 0.75:
 		RotateCar(delta)
 
