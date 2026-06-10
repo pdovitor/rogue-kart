@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://dw1f1c17563tv"]
 
 [ext_resource type="Script" uid="uid://dvqebi255tavc" path="res://Car.gd" id="1_di0ve"]
-[ext_resource type="Texture2D" uid="uid://dk3n7wxyuyuo8" path="res://Assets/colormap.png" id="2_vlf22"]
+[ext_resource type="Texture2D" uid="uid://dk3n7wxyuyuo8" path="res://Assets/aliens/colormap.png" id="2_vlf22"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tqn6a"]
 resource_name = "colormap"

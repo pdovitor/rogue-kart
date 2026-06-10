@@ -11,7 +11,7 @@ extends Node3D
 
 var velocidade_kmh: int = 0
 
-var acceleration =80.0
+var acceleration = 90.0
 var steering = 12.0
 var turn_speed = 5
 var body_tilt = 30
