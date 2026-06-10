@@ -331,7 +331,9 @@ stretch = true
 stretch_shrink = 4
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=923126793]
+handle_input_locally = false
 size = Vector2i(288, 162)
+render_target_update_mode = 4
 
 [node name="Ball" type="RigidBody3D" parent="SubViewportContainer/SubViewport" unique_id=853750109]
 physics_material_override = SubResource("PhysicsMaterial_go66d")
