@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://dc21ufy5yyg04"]
 
-[ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scenes/carTest.gd" id="1_go66d"]
+[ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scripts/player.gd" id="1_go66d"]
 [ext_resource type="Texture2D" uid="uid://dk3n7wxyuyuo8" path="res://Assets/aliens/colormap.png" id="1_wqo35"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_go66d"]
@@ -317,7 +317,7 @@ _data = {
 &"ZoomOut": SubResource("Animation_u41r7")
 }
 
-[node name="Car" type="Node3D" unique_id=1073571490]
+[node name="Car" type="Node3D" unique_id=1073571490 groups=["player"]]
 script = ExtResource("1_go66d")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=187968252]
@@ -328,11 +328,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 4
+stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=923126793]
 handle_input_locally = false
-size = Vector2i(288, 162)
+size = Vector2i(576, 324)
 render_target_update_mode = 4
 
 [node name="Ball" type="RigidBody3D" parent="SubViewportContainer/SubViewport" unique_id=853750109]

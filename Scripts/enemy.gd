@@ -10,14 +10,14 @@ func _ready() -> void:
 	await get_tree().process_frame
 	
 	# Método 1: Tenta achar o carro pelo grupo 'player' (Configurado na Solução 1)
-	var players = get_tree().get_nodes_in_group("player")
+	var players = get_tree().get_nodes_in_group("car")
 	if players.size() > 0:
 		player = players[0]
 		print("Inimigo: Jogador encontrado via Grupo!")
 	else:
 		# Método 2: Se não achou por grupo, procura na árvore por um nó chamado 'Car'
 		# (Godot diferencia maiúsculas/minúsculas, então se na sua main estiver "car", mude para "car")
-		player = get_tree().current_scene.find_child("Car", true, false)
+		player = get_tree().current_scene.find_child("car", true, false)
 		if player:
 			print("Inimigo: Jogador encontrado via nome do Nó!")
 		else:

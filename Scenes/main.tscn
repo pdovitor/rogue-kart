@@ -1,7 +1,7 @@
 [gd_scene format=4 uid="uid://hvkg764oev3x"]
 
 [ext_resource type="PackedScene" uid="uid://dc21ufy5yyg04" path="res://Scenes/car.tscn" id="1_jjgbg"]
-[ext_resource type="Script" uid="uid://cmpsqjgjsrvny" path="res://Scenes/main.gd" id="1_ynf5e"]
+[ext_resource type="Script" uid="uid://cmpsqjgjsrvny" path="res://Scripts/main.gd" id="1_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://d21upgo46s6lq" path="res://Assets/SouthLoop_Image_0.png" id="2_344ge"]
 [ext_resource type="Texture2D" uid="uid://bnu7ekigago03" path="res://Assets/SouthLoop_Image_1.png" id="3_ynf5e"]
 [ext_resource type="Texture2D" uid="uid://c3k2aqppkyst4" path="res://Assets/SouthLoop_Image_2.png" id="4_hptm8"]
