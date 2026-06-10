@@ -1,13 +1,13 @@
 extends Node3D
 
-@onready var Ball = $Ball
-@onready var Car = $Car
-@onready var RightWheel = $"Car/Model/wheel-front-right"
-@onready var LeftWheel = $"Car/Model/wheel-front-left"
-@onready var CarBody = $Car/Model/body
-@onready var DriftTimer = $DriftTimer
-@onready var BoostTimer = $BoostTimer
-@onready var Anim = $AnimationPlayer
+@onready var Ball = $SubViewportContainer/SubViewport/Ball
+@onready var Car = $SubViewportContainer/SubViewport/Car
+@onready var RightWheel = $"SubViewportContainer/SubViewport/Car/Model/wheel-front-right"
+@onready var LeftWheel = $"SubViewportContainer/SubViewport/Car/Model/wheel-front-left"
+@onready var CarBody = $SubViewportContainer/SubViewport/Car/Model/body
+@onready var DriftTimer = $SubViewportContainer/SubViewport/DriftTimer
+@onready var BoostTimer = $SubViewportContainer/SubViewport/BoostTimer
+@onready var Anim = $SubViewportContainer/SubViewport/AnimationPlayer
 
 var velocidade_kmh: int = 0
 
