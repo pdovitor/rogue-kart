@@ -306,8 +306,13 @@ background_mode = 2
 sky = SubResource("Sky_8gbba")
 ambient_light_source = 3
 ambient_light_color = Color(0.89145625, 0.89145625, 0.8914562, 1)
+ambient_light_sky_contribution = 0.96
 ambient_light_energy = 16.0
 reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 0.76
+adjustment_enabled = true
+adjustment_saturation = 1.15
 
 [node name="Node3D" type="Node3D" unique_id=277975496]
 script = ExtResource("1_ynf5e")
