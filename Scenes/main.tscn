@@ -361,4 +361,4 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 
 [node name="Enemy" parent="." unique_id=2065917923 instance=ExtResource("10_hptm8")]
-transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, -2.7484112, -0.2000016, -32.335316)
+transform = Transform3D(1.2784961, 0, 0.5704802, 0, 1.4, 0, -0.5704802, 0, 1.2784961, -15.078013, -0.2000016, -50.004105)
