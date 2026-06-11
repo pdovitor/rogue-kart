@@ -265,7 +265,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SubViewportContainer/SubViewport/Car/Camera3D:fov")
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/SpringArm3D/Camera3D:fov")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -282,7 +282,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SubViewportContainer/SubViewport/Car/Camera3D:fov")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/SpringArm3D/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -299,7 +299,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SubViewportContainer/SubViewport/Car/Camera3D:fov")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/SpringArm3D/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -328,11 +328,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=923126793]
 handle_input_locally = false
-size = Vector2i(576, 324)
+size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="Ball" type="RigidBody3D" parent="SubViewportContainer/SubViewport" unique_id=853750109]
@@ -379,10 +378,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.3, -0.65999997)
 mesh = SubResource("ArrayMesh_534nx")
 surface_material_override/0 = SubResource("StandardMaterial3D_argdw")
 
-[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/Car" unique_id=202241637]
-transform = Transform3D(1, 0, 0, 0, 0.9690157, 0.24699901, 0, -0.24699901, 0.9690157, 0, 2.5, 3.6)
-fov = 80.0
-
 [node name="DriftTimer" type="Timer" parent="SubViewportContainer/SubViewport" unique_id=1935430453]
 wait_time = 1.25
 one_shot = true
@@ -394,6 +389,14 @@ one_shot = true
 [node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport" unique_id=276971200]
 root_node = NodePath("../../..")
 libraries/ = SubResource("AnimationLibrary_yi23e")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport" unique_id=1621489466]
+transform = Transform3D(1, 0, 0, 0, 0.9702957, 0.2419219, 0, -0.2419219, 0.9702957, 0, 0, 0)
+spring_length = 3.5
+margin = 5.0
+
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D" unique_id=202241637]
+fov = 80.0
 
 [connection signal="timeout" from="SubViewportContainer/SubViewport/DriftTimer" to="." method="_on_drift_timer_timeout"]
 [connection signal="timeout" from="SubViewportContainer/SubViewport/BoostTimer" to="." method="_on_boost_timer_timeout"]

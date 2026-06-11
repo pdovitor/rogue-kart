@@ -8,13 +8,16 @@ extends Node3D
 @onready var DriftTimer = $SubViewportContainer/SubViewport/DriftTimer
 @onready var BoostTimer = $SubViewportContainer/SubViewport/BoostTimer
 @onready var Anim = $SubViewportContainer/SubViewport/AnimationPlayer
+@onready var SpringArm = $SubViewportContainer/SubViewport/SpringArm3D
+@onready var Cam = $SubViewportContainer/SubViewport/SpringArm3D/Camera3D
 
 var velocidade_kmh: int = 0
 
-var acceleration = 90.0
+var acceleration = 125.0
 var steering = 12.0
-var turn_speed = 5
+var turn_speed = 5.5
 var body_tilt = 30
+var hop_force = 15.0
 
 var speed_input = 0
 var rotate_input = 0
@@ -25,37 +28,78 @@ var MinimumDrift = false
 var Boost = 1
 var DriftBoost = 1.75
 
-func _physics_process(_delta):
+func _physics_process(delta):
 	Car.transform.origin = Ball.transform.origin
 	Ball.apply_central_force(-Car.global_transform.basis.z * speed_input * Boost)
+	var height_offset = Vector3(0, 1.5, 0) 
+	
+	var target_pos = Car.global_position + height_offset
+	SpringArm.global_position = SpringArm.global_position.lerp(target_pos, 20.0 * delta)
+	
+	var target_rotation = Car.global_rotation.y
+	SpringArm.rotation.y = lerp_angle(SpringArm.rotation.y, target_rotation, 8.0 * delta)
 	
 func _process(delta):
-	speed_input = (Input.get_action_strength("Accelerate") - Input.get_action_strength("Brake")) * acceleration #
+	var gas = Input.get_action_strength("Accelerate")
+	var brake = Input.get_action_strength("Brake")
+	var vel_atual = Ball.linear_velocity.length()
 	
-	# Captura a intenção de curva do jogador (-1 para direita, 1 para esquerda)
+	var target_speed = (gas - brake) * acceleration
+	
+	var pedal_response = 0.0
+	
+	if gas > 0 and brake == 0:
+		pedal_response = 200.0 # Motor responde rápido
+	elif brake > 0:
+		pedal_response = 300.0 # Freio forte
+	else:
+		pedal_response = 40.0  # Inércia - O carro desliza quando solta tudo
+	
+	speed_input = move_toward(speed_input, target_speed, pedal_response * delta)
+	
 	var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right") #
 	
-	# Se o speed_input for menor que 0, inverte a direção já que esta dando ré
 	if speed_input < 0:
 		steer_direction = -steer_direction
 
-	rotate_input = deg_to_rad(steering) * steer_direction
+	var multiplicador_curva = 1.0
+	
+	if vel_atual < 2.0:
+		multiplicador_curva = vel_atual / 2.0 
+	else:
+		
+		var fator_vel = clamp(vel_atual / 30.0, 0.0, 1.0)
+		multiplicador_curva = lerp(1.0, 0.6, fator_vel) 
+
+	rotate_input = deg_to_rad(steering) * steer_direction * multiplicador_curva
+	
 	RightWheel.rotation.y = rotate_input
 	LeftWheel.rotation.y = rotate_input
 	
-	if Input.is_action_just_pressed("Drift") and not Drifting and rotate_input != 0 and speed_input > 0:
-		StartDrift()
+	if Input.is_action_just_pressed("Drift") and not Drifting and speed_input > 0:
+		Anim.play("Hop")
+		Ball.linear_velocity.y = 0 
+		Ball.apply_central_impulse(Vector3.UP * hop_force)
+		
+		if rotate_input != 0:
+			StartDrift()
+	
+	var angulo_visual_alvo = 0.0
+	
+	if Drifting:
+		angulo_visual_alvo = deg_to_rad(45.0) * DriftDirection
+		
+	CarBody.rotation.y = lerp_angle(CarBody.rotation.y, angulo_visual_alvo, 10.0 * delta)
 
 	if Drifting:
-		# Captura o comando de direção puro sem a inversão da ré já que não faz drift de ré
 		var raw_steer = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
 		
-		# quanto maior o driftamount mais fechada é a curva
-		var DriftAmount = raw_steer * deg_to_rad(steering * 0.67) #six seven
+		var forca_automatica = DriftDirection * deg_to_rad(steering * 0.8)
 		
-		rotate_input = DriftDirection + DriftAmount
+		var ajuste_jogador = raw_steer * deg_to_rad(steering * 0.5)
+		rotate_input = forca_automatica + ajuste_jogador
 
-	if Drifting and (Input.is_action_just_released("Drift") or speed_input < 1):
+	if Drifting and (Input.is_action_just_released("Drift") or speed_input < 0.5):
 		StopDrift()
 		
 	var velocidade_atual = Ball.linear_velocity.length()
@@ -63,26 +107,60 @@ func _process(delta):
 	
 	if Ball.linear_velocity.length() > 0.75:
 		RotateCar(delta)
+	
+	var current_speed = Ball.linear_velocity.length()
+	var speed_factor = clamp(current_speed / 30.0, 0.0, 1.0)
+	
+	var base_fov = 75.0
+	var max_fov_add = 20.0
+	
+	var base_spring_length = 3.5 # Distância normal da câmera
+	var max_length_add = 0.1
+	
+	var target_fov = base_fov + (max_fov_add * speed_factor)
+	var target_length = base_spring_length + (max_length_add * speed_factor)
+	
+	if Boost > 1.0:
+		target_fov += 5.0 
+		target_length += 1.0
+	
+	Cam.fov = lerp(Cam.fov, target_fov, 5.0 * delta)
+	SpringArm.spring_length = lerp(SpringArm.spring_length, target_length, 3.0 * delta)
+	
+	if BoostTimer.is_stopped() and Boost > 1.0:
+		Boost = lerp(Boost, 1.0, 3.0 * delta)
+	
+	if Boost > 1.0:
+		var shake_intensity = (Boost - 1.0) * 0.08 
+		
+		Cam.h_offset = randf_range(-shake_intensity, shake_intensity)
+		Cam.v_offset = randf_range(-shake_intensity, shake_intensity)
+	else:
+		Cam.h_offset = lerp(Cam.h_offset, 0.0, 15.0 * delta)
+		Cam.v_offset = lerp(Cam.v_offset, 0.0, 15.0 * delta)
+	
 
 func RotateCar(delta):
 	var new_basis = Car.global_transform.basis.rotated(Car.global_transform.basis.y, rotate_input)
 	Car.global_transform.basis = Car.global_transform.basis.slerp(new_basis, turn_speed * delta)
 	Car.global_transform = Car.global_transform.orthonormalized()
 	var t = -rotate_input * Ball.linear_velocity.length() / body_tilt
-	CarBody.rotation.z = lerp(CarBody.rotation.z, t, 10 * delta)	
+	CarBody.rotation.z = lerp(CarBody.rotation.z, t, 5 * delta)	
 
 func StartDrift():
 	Drifting = true
-	Anim.play("Hop")
 	MinimumDrift = false
-	DriftDirection = rotate_input
 	DriftTimer.start()
+	
+	var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
+	DriftDirection = sign(steer_direction)
+	if DriftDirection == 0:
+		DriftDirection = 1
 
 func StopDrift():
 	if MinimumDrift:
 		Boost = DriftBoost
 		BoostTimer.start()
-		Anim.play("ZoomOut")
 	Drifting = false
 	MinimumDrift = false
 
@@ -91,5 +169,4 @@ func _on_drift_timer_timeout(): # -> void
 		MinimumDrift = true
 
 func _on_boost_timer_timeout(): # -> void
-	Boost = 1.0
-	Anim.play("ZoomIn")
+	pass
