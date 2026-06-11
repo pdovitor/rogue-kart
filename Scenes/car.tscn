@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scripts/player.gd" id="1_go66d"]
 [ext_resource type="Texture2D" uid="uid://dk3n7wxyuyuo8" path="res://Assets/aliens/colormap.png" id="1_wqo35"]
+[ext_resource type="Shader" uid="uid://dxuqb70coe8h2" path="res://Shaders/smoke_shader.tres" id="3_u41r7"]
+[ext_resource type="Texture2D" uid="uid://by24ursm66ip3" path="res://Assets/texture/T_Noise_001R.png" id="4_aky6y"]
+[ext_resource type="Material" uid="uid://dbc3ki47t7aj6" path="res://Shaders/smoke_particle_process_material.tres" id="5_aky6y"]
+[ext_resource type="ArrayMesh" uid="uid://c7fctk1cdvik0" path="res://Assets/objects/sm_cloud.obj" id="5_aqss3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_go66d"]
 bounce = 0.1
@@ -232,6 +236,12 @@ shadow_mesh = SubResource("ArrayMesh_hsn0w")
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_argdw"]
 albedo_texture = ExtResource("1_wqo35")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3wrf"]
+render_priority = 0
+shader = ExtResource("3_u41r7")
+shader_parameter/Texture_Scale = Vector2(0.5, 0.5)
+shader_parameter/Disolver_Texture = ExtResource("4_aky6y")
+
 [sub_resource type="Animation" id="Animation_go66d"]
 resource_name = "Hop"
 length = 0.2
@@ -377,6 +387,26 @@ surface_material_override/0 = SubResource("StandardMaterial3D_y3wrf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.15, -0.635)
 mesh = SubResource("ArrayMesh_534nx")
 surface_material_override/0 = SubResource("StandardMaterial3D_argdw")
+
+[node name="SmokeParticlesRight" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=2050426430]
+transform = Transform3D(1, 8.7166654e-08, 8.073556e-08, -8.716663e-08, 0.076492816, 0.99707013, 8.0735504e-08, -0.99707013, 0.076492816, -0.3909385, -0.12912998, -0.44557923)
+material_override = SubResource("ShaderMaterial_y3wrf")
+emitting = false
+amount = 100
+lifetime = 0.35000000000000003
+fixed_fps = 60
+process_material = ExtResource("5_aky6y")
+draw_pass_1 = ExtResource("5_aqss3")
+
+[node name="SmokeParticlesLeft" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=694478975]
+transform = Transform3D(1, 8.7166654e-08, 8.073556e-08, -8.716663e-08, 0.076492816, 0.99707013, 8.0735504e-08, -0.99707013, 0.076492816, 0.576018, -0.12912998, -0.5371132)
+material_override = SubResource("ShaderMaterial_y3wrf")
+emitting = false
+amount = 100
+lifetime = 0.35000000000000003
+fixed_fps = 60
+process_material = ExtResource("5_aky6y")
+draw_pass_1 = ExtResource("5_aqss3")
 
 [node name="GroundRay" type="RayCast3D" parent="SubViewportContainer/SubViewport/Car" unique_id=673199066]
 

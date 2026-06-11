@@ -11,6 +11,8 @@ extends Node3D
 @onready var SpringArm = $SubViewportContainer/SubViewport/SpringArm3D
 @onready var Cam = $SubViewportContainer/SubViewport/SpringArm3D/Camera3D
 @onready var GroundRay = $SubViewportContainer/SubViewport/Car/GroundRay
+@onready var SmokeParticlesRight = $SubViewportContainer/SubViewport/Car/Model/body/SmokeParticlesRight
+@onready var SmokeParticlesLeft = $SubViewportContainer/SubViewport/Car/Model/body/SmokeParticlesLeft
 
 var standard_scale = Vector3(1, 1, 1)
 var squash_scale = Vector3(1.4, 0.5, 1.4) # Achatado no impacto
@@ -152,6 +154,12 @@ func _process(delta):
 		Cam.h_offset = lerp(Cam.h_offset, 0.0, 15.0 * delta)
 		Cam.v_offset = lerp(Cam.v_offset, 0.0, 15.0 * delta)
 	CarBody.scale = CarBody.scale.lerp(standard_scale, scaling_lerp_speed * delta)
+	if Drifting and Ball.linear_velocity.length() > 2.0:
+		SmokeParticlesRight.emitting = true
+		SmokeParticlesLeft.emitting = true
+	else:
+		SmokeParticlesRight.emitting = false
+		SmokeParticlesLeft.emitting = false
 
 func RotateCar(delta):
 	var new_basis = Car.global_transform.basis.rotated(Car.global_transform.basis.y, rotate_input)
