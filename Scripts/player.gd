@@ -4,6 +4,8 @@ extends Node3D
 @onready var Car = $SubViewportContainer/SubViewport/Car
 @onready var RightWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-right"
 @onready var LeftWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-left"
+@onready var LeftWheelBack = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-back-left"
+@onready var RightWheelBack = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-back-right"
 @onready var CarBody = $SubViewportContainer/SubViewport/Car/Model/body
 @onready var DriftTimer = $SubViewportContainer/SubViewport/DriftTimer
 @onready var BoostTimer = $SubViewportContainer/SubViewport/BoostTimer
@@ -156,16 +158,30 @@ func _process(delta):
 		Cam.h_offset = lerp(Cam.h_offset, 0.0, 15.0 * delta)
 		Cam.v_offset = lerp(Cam.v_offset, 0.0, 15.0 * delta)
 	CarBody.scale = CarBody.scale.lerp(standard_scale, scaling_lerp_speed * delta)
+	
+	
 	if Drifting and Ball.linear_velocity.length() > 2.0:
 		SmokeParticlesRight.emitting = true
 		SmokeParticlesLeft.emitting = true
-		#SparkParticlesRight.emitting = true
-		#SparkParticlesLeft.emitting = true
+		
+		var speed_for_smoke = Ball.linear_velocity.length()
+		var smoke_factor = clamp(speed_for_smoke / 30.0, 0.1, 1.0)
+		
+		SmokeParticlesRight.amount_ratio = smoke_factor
+		SmokeParticlesLeft.amount_ratio = smoke_factor
 	else:
 		SmokeParticlesRight.emitting = false
 		SmokeParticlesLeft.emitting = false
-		#SparkParticlesRight.emitting = false
-		#SparkParticlesLeft.emitting = false
+		
+	var wheel_direction = 1.0
+	if speed_input < 0:
+		wheel_direction = -1.0
+	var spin = vel_atual * 2.0 * delta * wheel_direction
+	
+	RightWheel.rotation.x -= spin
+	LeftWheel.rotation.x -= spin
+	LeftWheelBack.rotation.x -= spin
+	RightWheelBack.rotation.x -= spin
 
 func RotateCar(delta):
 	var new_basis = Car.global_transform.basis.rotated(Car.global_transform.basis.y, rotate_input)
