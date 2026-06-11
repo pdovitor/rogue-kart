@@ -10,14 +10,21 @@ extends Node3D
 @onready var Anim = $SubViewportContainer/SubViewport/AnimationPlayer
 @onready var SpringArm = $SubViewportContainer/SubViewport/SpringArm3D
 @onready var Cam = $SubViewportContainer/SubViewport/SpringArm3D/Camera3D
+@onready var GroundRay = $SubViewportContainer/SubViewport/Car/GroundRay
+
+var standard_scale = Vector3(1, 1, 1)
+var squash_scale = Vector3(1.4, 0.5, 1.4) # Achatado no impacto
+var stretch_scale = Vector3(0.9, 1.2, 0.9) # Esticado no pulo
+var scaling_lerp_speed = 12.0
+var was_in_air = false
 
 var velocidade_kmh: int = 0
 
 var acceleration = 125.0
 var steering = 12.0
 var turn_speed = 5.5
-var body_tilt = 30
-var hop_force = 15.0
+var body_tilt = 70
+var hop_force = 2.0
 
 var speed_input = 0
 var rotate_input = 0
@@ -38,6 +45,11 @@ func _physics_process(delta):
 	
 	var target_rotation = Car.global_rotation.y
 	SpringArm.rotation.y = lerp_angle(SpringArm.rotation.y, target_rotation, 8.0 * delta)
+	if not GroundRay.is_colliding():
+		was_in_air = true
+	elif was_in_air:
+		CarBody.scale = squash_scale # Esmaga o carro no chão!
+		was_in_air = false
 	
 func _process(delta):
 	var gas = Input.get_action_strength("Accelerate")
@@ -80,6 +92,7 @@ func _process(delta):
 		Anim.play("Hop")
 		Ball.linear_velocity.y = 0 
 		Ball.apply_central_impulse(Vector3.UP * hop_force)
+		CarBody.scale = stretch_scale
 		
 		if rotate_input != 0:
 			StartDrift()
@@ -89,7 +102,7 @@ func _process(delta):
 	if Drifting:
 		angulo_visual_alvo = deg_to_rad(45.0) * DriftDirection
 		
-	CarBody.rotation.y = lerp_angle(CarBody.rotation.y, angulo_visual_alvo, 10.0 * delta)
+	CarBody.rotation.y = lerp_angle(CarBody.rotation.y, angulo_visual_alvo, 5.0 * delta)
 
 	if Drifting:
 		var raw_steer = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
@@ -138,7 +151,7 @@ func _process(delta):
 	else:
 		Cam.h_offset = lerp(Cam.h_offset, 0.0, 15.0 * delta)
 		Cam.v_offset = lerp(Cam.v_offset, 0.0, 15.0 * delta)
-	
+	CarBody.scale = CarBody.scale.lerp(standard_scale, scaling_lerp_speed * delta)
 
 func RotateCar(delta):
 	var new_basis = Car.global_transform.basis.rotated(Car.global_transform.basis.y, rotate_input)
@@ -161,6 +174,7 @@ func StopDrift():
 	if MinimumDrift:
 		Boost = DriftBoost
 		BoostTimer.start()
+		CarBody.scale = Vector3(0.7, 0.7, 1.5)
 	Drifting = false
 	MinimumDrift = false
 

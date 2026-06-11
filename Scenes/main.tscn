@@ -345,7 +345,7 @@ shape = SubResource("ConcavePolygonShape3D_fj0dj")
 environment = SubResource("Environment_jjvhh")
 
 [node name="Car" parent="." unique_id=1073571490 instance=ExtResource("1_jjgbg")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.901012, 2.9658966, 82.224434)
+transform = Transform3D(1.8524765, 0, 0, 0, 1.1866925, 0, 0, 0, 1, 41.321, 2.966, 82.224)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=23873339]
 

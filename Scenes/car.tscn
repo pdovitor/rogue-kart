@@ -378,6 +378,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.15, -0.635)
 mesh = SubResource("ArrayMesh_534nx")
 surface_material_override/0 = SubResource("StandardMaterial3D_argdw")
 
+[node name="GroundRay" type="RayCast3D" parent="SubViewportContainer/SubViewport/Car" unique_id=673199066]
+
 [node name="DriftTimer" type="Timer" parent="SubViewportContainer/SubViewport" unique_id=1935430453]
 wait_time = 1.25
 one_shot = true
