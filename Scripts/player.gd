@@ -2,8 +2,8 @@ extends Node3D
 
 @onready var Ball = $SubViewportContainer/SubViewport/Ball
 @onready var Car = $SubViewportContainer/SubViewport/Car
-@onready var RightWheel = $"SubViewportContainer/SubViewport/Car/Model/wheel-front-right"
-@onready var LeftWheel = $"SubViewportContainer/SubViewport/Car/Model/wheel-front-left"
+@onready var RightWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-right"
+@onready var LeftWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-left"
 @onready var CarBody = $SubViewportContainer/SubViewport/Car/Model/body
 @onready var DriftTimer = $SubViewportContainer/SubViewport/DriftTimer
 @onready var BoostTimer = $SubViewportContainer/SubViewport/BoostTimer
@@ -34,7 +34,7 @@ func _physics_process(delta):
 	var height_offset = Vector3(0, 1.5, 0) 
 	
 	var target_pos = Car.global_position + height_offset
-	SpringArm.global_position = SpringArm.global_position.lerp(target_pos, 20.0 * delta)
+	SpringArm.global_position = SpringArm.global_position.lerp(target_pos, 40 * delta)
 	
 	var target_rotation = Car.global_rotation.y
 	SpringArm.rotation.y = lerp_angle(SpringArm.rotation.y, target_rotation, 8.0 * delta)

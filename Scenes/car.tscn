@@ -358,23 +358,23 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -1.0436862)
 mesh = SubResource("ArrayMesh_wulu8")
 surface_material_override/0 = SubResource("StandardMaterial3D_aky6y")
 
-[node name="wheel-front-right" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model" unique_id=1571387331]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.3, 0.65999997)
+[node name="wheel-front-right" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1571387331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.15, 0.68499994)
 mesh = SubResource("ArrayMesh_lbxhc")
 surface_material_override/0 = SubResource("StandardMaterial3D_yi23e")
 
-[node name="wheel-back-left" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model" unique_id=1067507388]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.3, -0.65999997)
+[node name="wheel-back-left" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1067507388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, -0.635)
 mesh = SubResource("ArrayMesh_dduxa")
 surface_material_override/0 = SubResource("StandardMaterial3D_aqss3")
 
-[node name="wheel-front-left" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model" unique_id=464664854]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.3, 0.65999997)
+[node name="wheel-front-left" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=464664854]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, 0.68499994)
 mesh = SubResource("ArrayMesh_rybmm")
 surface_material_override/0 = SubResource("StandardMaterial3D_y3wrf")
 
-[node name="wheel-back-right" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model" unique_id=988661029]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.3, -0.65999997)
+[node name="wheel-back-right" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=988661029]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.15, -0.635)
 mesh = SubResource("ArrayMesh_534nx")
 surface_material_override/0 = SubResource("StandardMaterial3D_argdw")
 
