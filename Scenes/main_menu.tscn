@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d2brewvsccuxy"]
+
+[ext_resource type="Script" uid="uid://ba7ockxfpy62k" path="res://Scripts/main_menu.gd" id="1_28flt"]
+[ext_resource type="Texture2D" uid="uid://do31f6o87fjc" path="res://Assets/botoes/2.png" id="2_ce3w2"]
+[ext_resource type="Texture2D" uid="uid://c5bwc0d4icuvx" path="res://Assets/botoes/button_rectangle_depth_flat.png" id="3_n45e2"]
+[ext_resource type="Texture2D" uid="uid://dy5bxxxt1u2ba" path="res://Assets/botoes/button_rectangle_depth_gradient.png" id="4_opfnp"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cp0ys"]
+texture = ExtResource("2_ce3w2")
+
+[node name="MainMenu" type="Node2D" unique_id=872274454]
+script = ExtResource("1_28flt")
+
+[node name="ButtonManager" type="Control" parent="." unique_id=78517193]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Panel" type="Panel" parent="ButtonManager" unique_id=78563053]
+layout_mode = 0
+offset_right = 1153.0
+offset_bottom = 644.0
+theme_override_styles/panel = SubResource("StyleBoxTexture_cp0ys")
+
+[node name="Start" type="TextureButton" parent="ButtonManager" unique_id=55980406]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 473.0
+offset_top = 308.0
+offset_right = 625.0
+offset_bottom = 332.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("3_n45e2")
+texture_pressed = ExtResource("4_opfnp")
+
+[node name="Exit" type="TextureButton" parent="ButtonManager" unique_id=9336052]
+layout_mode = 0
+offset_left = 474.0
+offset_top = 400.0
+offset_right = 666.0
+offset_bottom = 464.0
+texture_normal = ExtResource("3_n45e2")
+texture_pressed = ExtResource("4_opfnp")
+
+[node name="startLabel" type="Label" parent="." unique_id=1220008291]
+offset_left = 528.0
+offset_top = 314.0
+offset_right = 610.0
+offset_bottom = 363.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Start"
+metadata/_edit_use_anchors_ = true
+
+[node name="ExitLabel" type="Label" parent="." unique_id=421417919]
+offset_left = 541.0
+offset_top = 403.0
+offset_right = 603.0
+offset_bottom = 452.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 35
+text = "Exit"
+
+[connection signal="pressed" from="ButtonManager/Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ButtonManager/Exit" to="." method="_on_exit_pressed"]
