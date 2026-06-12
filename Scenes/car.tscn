@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://by24ursm66ip3" path="res://Assets/texture/T_Noise_001R.png" id="4_aky6y"]
 [ext_resource type="Material" uid="uid://dbc3ki47t7aj6" path="res://Shaders/smoke_particle_process_material.tres" id="5_aky6y"]
 [ext_resource type="ArrayMesh" uid="uid://c7fctk1cdvik0" path="res://Assets/objects/sm_cloud.obj" id="5_aqss3"]
+[ext_resource type="Texture2D" uid="uid://rnby14qdn1wg" path="res://Assets/texture/Muzzle_Flash_3.png" id="7_y3wrf"]
+[ext_resource type="ArrayMesh" uid="uid://bvfxo6twkhiuv" path="res://Assets/objects/sm_muzzleplane.obj" id="8_argdw"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_go66d"]
 bounce = 0.1
@@ -242,6 +244,27 @@ shader = ExtResource("3_u41r7")
 shader_parameter/Texture_Scale = Vector2(0.5, 0.5)
 shader_parameter/Disolver_Texture = ExtResource("4_aky6y")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lh2yg"]
+transparency = 1
+blend_mode = 1
+cull_mode = 2
+shading_mode = 0
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("7_y3wrf")
+
+[sub_resource type="Curve" id="Curve_7dpuy"]
+_data = [Vector2(0, 0), 0.0, 3.3515255, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_pkuty"]
+curve = SubResource("Curve_7dpuy")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_57vaf"]
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_pkuty")
+color = Color(0.974479, 0.81731206, 0.33051077, 1)
+
 [sub_resource type="Animation" id="Animation_go66d"]
 resource_name = "Hop"
 length = 0.2
@@ -404,10 +427,38 @@ transform = Transform3D(1, 8.7166654e-08, 8.073556e-08, -8.716663e-08, 0.0764928
 material_override = SubResource("ShaderMaterial_y3wrf")
 emitting = false
 amount = 100
-lifetime = 0.35000000000000003
+lifetime = 0.25
 fixed_fps = 60
 process_material = ExtResource("5_aky6y")
 draw_pass_1 = ExtResource("5_aqss3")
+
+[node name="SparkRight" type="Node3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1968083475]
+transform = Transform3D(0.78512245, 0, 0.6193407, 0, 1, 0, -0.6193407, 0, 0.78512245, -0.52245975, 0.06806764, -0.66135406)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body/SparkRight" unique_id=2018080046]
+material_override = SubResource("StandardMaterial3D_lh2yg")
+emitting = false
+amount = 2
+lifetime = 0.2
+randomness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_57vaf")
+draw_pass_1 = ExtResource("8_argdw")
+
+[node name="SparkLeft" type="Node3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=889568673]
+transform = Transform3D(0.786489, -0.3759188, -0.49002063, 0.23918106, 0.91689986, -0.3195105, 0.5694099, 0.13408783, 0.8110444, 0.5226732, 0.039744377, -0.64639443)
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body/SparkLeft" unique_id=1562631813]
+material_override = SubResource("StandardMaterial3D_lh2yg")
+emitting = false
+amount = 2
+lifetime = 0.1
+randomness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_57vaf")
+draw_pass_1 = ExtResource("8_argdw")
 
 [node name="GroundRay" type="RayCast3D" parent="SubViewportContainer/SubViewport/Car" unique_id=673199066]
 

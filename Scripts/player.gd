@@ -4,6 +4,8 @@ extends Node3D
 @onready var Car = $SubViewportContainer/SubViewport/Car
 @onready var RightWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-right"
 @onready var LeftWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-left"
+@onready var LeftWheelBack = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-back-left"
+@onready var RightWheelBack = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-back-right"
 @onready var CarBody = $SubViewportContainer/SubViewport/Car/Model/body
 @onready var DriftTimer = $SubViewportContainer/SubViewport/DriftTimer
 @onready var BoostTimer = $SubViewportContainer/SubViewport/BoostTimer
@@ -13,6 +15,8 @@ extends Node3D
 @onready var GroundRay = $SubViewportContainer/SubViewport/Car/GroundRay
 @onready var SmokeParticlesRight = $SubViewportContainer/SubViewport/Car/Model/body/SmokeParticlesRight
 @onready var SmokeParticlesLeft = $SubViewportContainer/SubViewport/Car/Model/body/SmokeParticlesLeft
+@onready var SparkParticlesLeft = $SubViewportContainer/SubViewport/Car/Model/body/SparkLeft/GPUParticles3D
+@onready var SparkParticlesRight = $SubViewportContainer/SubViewport/Car/Model/body/SparkRight/GPUParticles3D
 
 var standard_scale = Vector3(1, 1, 1)
 var squash_scale = Vector3(1.4, 0.5, 1.4) # Achatado no impacto
@@ -154,12 +158,30 @@ func _process(delta):
 		Cam.h_offset = lerp(Cam.h_offset, 0.0, 15.0 * delta)
 		Cam.v_offset = lerp(Cam.v_offset, 0.0, 15.0 * delta)
 	CarBody.scale = CarBody.scale.lerp(standard_scale, scaling_lerp_speed * delta)
+	
+	
 	if Drifting and Ball.linear_velocity.length() > 2.0:
 		SmokeParticlesRight.emitting = true
 		SmokeParticlesLeft.emitting = true
+		
+		var speed_for_smoke = Ball.linear_velocity.length()
+		var smoke_factor = clamp(speed_for_smoke / 30.0, 0.1, 1.0)
+		
+		SmokeParticlesRight.amount_ratio = smoke_factor
+		SmokeParticlesLeft.amount_ratio = smoke_factor
 	else:
 		SmokeParticlesRight.emitting = false
 		SmokeParticlesLeft.emitting = false
+		
+	var wheel_direction = 1.0
+	if speed_input < 0:
+		wheel_direction = -1.0
+	var spin = vel_atual * 2.0 * delta * wheel_direction
+	
+	RightWheel.rotation.x -= spin
+	LeftWheel.rotation.x -= spin
+	LeftWheelBack.rotation.x -= spin
+	RightWheelBack.rotation.x -= spin
 
 func RotateCar(delta):
 	var new_basis = Car.global_transform.basis.rotated(Car.global_transform.basis.y, rotate_input)
@@ -182,7 +204,7 @@ func StopDrift():
 	if MinimumDrift:
 		Boost = DriftBoost
 		BoostTimer.start()
-		CarBody.scale = Vector3(0.7, 0.7, 1.5)
+		#CarBody.scale = Vector3(0.7, 0.7, 1.5)
 	Drifting = false
 	MinimumDrift = false
 
