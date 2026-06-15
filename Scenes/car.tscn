@@ -9,6 +9,14 @@
 [ext_resource type="Texture2D" uid="uid://rnby14qdn1wg" path="res://Assets/texture/Muzzle_Flash_3.png" id="7_y3wrf"]
 [ext_resource type="ArrayMesh" uid="uid://bvfxo6twkhiuv" path="res://Assets/objects/sm_muzzleplane.obj" id="8_argdw"]
 
+[sub_resource type="Gradient" id="Gradient_vg03h"]
+offsets = PackedFloat32Array(0, 0.4368421, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.55263156, 0.55263156, 0.55263156, 1, 0.74138474, 0.7413847, 0.74138457, 1)
+
+[sub_resource type="Gradient" id="Gradient_y3wrf"]
+offsets = PackedFloat32Array(0, 0.44230768, 1)
+colors = PackedColorArray(0, 0.9098039, 0.101960786, 1, 0, 0.7294118, 0, 1, 0, 0.7411765, 0.13725491, 1)
+
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_go66d"]
 bounce = 0.1
 
@@ -244,6 +252,41 @@ shader = ExtResource("3_u41r7")
 shader_parameter/Texture_Scale = Vector2(0.5, 0.5)
 shader_parameter/Disolver_Texture = ExtResource("4_aky6y")
 
+[sub_resource type="Curve" id="Curve_u41r7"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 2.9662924, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_aky6y"]
+texture_mode = 1
+curve = SubResource("Curve_u41r7")
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8b7h8"]
+gradient = SubResource("Gradient_vg03h")
+
+[sub_resource type="Curve" id="Curve_argdw"]
+_data = [Vector2(0, 0.30337083), 0.0, 0.0, 0, 0, Vector2(1, 0.77528095), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_lh2yg"]
+curve = SubResource("Curve_argdw")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_y3wrf"]
+particle_flag_rotate_y = true
+emission_shape = 1
+emission_sphere_radius = 0.5
+angle_min = -179.99998
+angle_max = 180.00002
+inherit_velocity_ratio = 1.0
+direction = Vector3(-0.3, 1, 0)
+initial_velocity_min = 3.0
+initial_velocity_max = 4.0
+gravity = Vector3(0, 0.72, 0)
+scale_min = 0.5
+scale_max = 0.5
+scale_curve = SubResource("CurveTexture_lh2yg")
+color_ramp = SubResource("GradientTexture1D_8b7h8")
+alpha_curve = SubResource("CurveTexture_aky6y")
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lh2yg"]
 transparency = 1
 blend_mode = 1
@@ -352,6 +395,8 @@ _data = {
 
 [node name="Car" type="Node3D" unique_id=1073571490 groups=["player"]]
 script = ExtResource("1_go66d")
+DriftSmokeColor = SubResource("Gradient_vg03h")
+ChargedDriftSmokeColor = SubResource("Gradient_y3wrf")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=187968252]
 texture_filter = 1
@@ -361,11 +406,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 stretch = true
-stretch_shrink = 2
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=923126793]
 handle_input_locally = false
-size = Vector2i(576, 324)
+size = Vector2i(1152, 648)
 render_target_update_mode = 4
 
 [node name="Ball" type="RigidBody3D" parent="SubViewportContainer/SubViewport" unique_id=853750109]
@@ -419,7 +463,7 @@ emitting = false
 amount = 100
 lifetime = 0.35000000000000003
 fixed_fps = 60
-process_material = ExtResource("5_aky6y")
+process_material = SubResource("ParticleProcessMaterial_y3wrf")
 draw_pass_1 = ExtResource("5_aqss3")
 
 [node name="SmokeParticlesLeft" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=694478975]

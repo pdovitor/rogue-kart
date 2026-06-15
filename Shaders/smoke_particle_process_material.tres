@@ -8,12 +8,12 @@ point_count = 2
 texture_mode = 1
 curve = SubResource("Curve_u41r7")
 
-[sub_resource type="Gradient" id="Gradient_u41r7"]
+[sub_resource type="Gradient" id="Gradient_vg03h"]
 offsets = PackedFloat32Array(0, 0.4368421, 1)
 colors = PackedColorArray(0, 0, 0, 1, 0.55263156, 0.55263156, 0.55263156, 1, 0.74138474, 0.7413847, 0.74138457, 1)
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_aky6y"]
-gradient = SubResource("Gradient_u41r7")
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_8b7h8"]
+gradient = SubResource("Gradient_vg03h")
 
 [sub_resource type="Curve" id="Curve_argdw"]
 _data = [Vector2(0, 0.30337083), 0.0, 0.0, 0, 0, Vector2(1, 0.77528095), 0.0, 0.0, 0, 0]
@@ -36,5 +36,5 @@ gravity = Vector3(0, 0.72, 0)
 scale_min = 0.5
 scale_max = 0.5
 scale_curve = SubResource("CurveTexture_lh2yg")
-color_ramp = SubResource("GradientTexture1D_aky6y")
+color_ramp = SubResource("GradientTexture1D_8b7h8")
 alpha_curve = SubResource("CurveTexture_aky6y")

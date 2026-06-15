@@ -18,6 +18,9 @@ extends Node3D
 @onready var SparkParticlesLeft = $SubViewportContainer/SubViewport/Car/Model/body/SparkLeft/GPUParticles3D
 @onready var SparkParticlesRight = $SubViewportContainer/SubViewport/Car/Model/body/SparkRight/GPUParticles3D
 
+@export var DriftSmokeColor : Gradient
+@export var ChargedDriftSmokeColor : Gradient
+
 var standard_scale = Vector3(1, 1, 1)
 var squash_scale = Vector3(1.4, 0.5, 1.4) # Achatado no impacto
 var stretch_scale = Vector3(0.9, 1.2, 0.9) # Esticado no pulo
@@ -36,6 +39,7 @@ var speed_input = 0
 var rotate_input = 0
 
 var Drifting = false
+var CanDrift = true
 var DriftDirection = 0
 var MinimumDrift = false
 var Boost = 1
@@ -91,10 +95,10 @@ func _process(delta):
 
 	rotate_input = deg_to_rad(steering) * steer_direction * multiplicador_curva
 	
-	RightWheel.rotation.y = rotate_input
-	LeftWheel.rotation.y = rotate_input
+	RightWheel.rotation.y = 1.5 * rotate_input
+	LeftWheel.rotation.y = 1.5 * rotate_input
 	
-	if Input.is_action_just_pressed("Drift") and not Drifting and speed_input > 0:
+	if Input.is_action_just_pressed("Drift") and not Drifting and speed_input > 0 and CanDrift:
 		Anim.play("Hop")
 		Ball.linear_velocity.y = 0 
 		Ball.apply_central_impulse(Vector3.UP * hop_force)
@@ -191,19 +195,22 @@ func RotateCar(delta):
 	CarBody.rotation.z = lerp(CarBody.rotation.z, t, 5 * delta)	
 
 func StartDrift():
-	Drifting = true
-	MinimumDrift = false
-	DriftTimer.start()
-	
-	var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
-	DriftDirection = sign(steer_direction)
-	if DriftDirection == 0:
-		DriftDirection = 1
+	if CanDrift:
+		Drifting = true
+		MinimumDrift = false
+		DriftTimer.start()
+		change_smoke_color(DriftSmokeColor)
+		
+		var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
+		DriftDirection = sign(steer_direction)
+		if DriftDirection == 0:
+			DriftDirection = 1
 
 func StopDrift():
 	if MinimumDrift:
 		Boost = DriftBoost
 		BoostTimer.start()
+		CanDrift = false
 		#CarBody.scale = Vector3(0.7, 0.7, 1.5)
 	Drifting = false
 	MinimumDrift = false
@@ -211,6 +218,17 @@ func StopDrift():
 func _on_drift_timer_timeout(): # -> void
 	if Drifting:
 		MinimumDrift = true
+		change_smoke_color(ChargedDriftSmokeColor)
 
 func _on_boost_timer_timeout(): # -> void
-	pass
+	CanDrift = true
+
+func change_smoke_color(new_gradient: Gradient):
+	if not SmokeParticlesLeft.process_material.color_ramp:
+		return
+		
+	var left_ramp = SmokeParticlesLeft.process_material.color_ramp
+	var right_ramp = SmokeParticlesRight.process_material.color_ramp
+	
+	left_ramp.gradient = new_gradient
+	right_ramp.gradient = new_gradient
