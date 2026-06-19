@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://hvl6s3mkfk4e"]
+
+[ext_resource type="Material" uid="uid://csa26utrxtm0l" path="res://Assets/st3d_prototype_black.tres" id="1_8ffim"]
+[ext_resource type="PackedScene" uid="uid://dc21ufy5yyg04" path="res://Scenes/car.tscn" id="2_8ffim"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8ffim"]
+
+[sub_resource type="Sky" id="Sky_8gbba"]
+sky_material = SubResource("ProceduralSkyMaterial_8ffim")
+
+[sub_resource type="Environment" id="Environment_xfk5q"]
+background_mode = 2
+sky = SubResource("Sky_8gbba")
+ambient_light_source = 3
+ambient_light_color = Color(0.89145625, 0.89145625, 0.8914562, 1)
+ambient_light_sky_contribution = 0.96
+ambient_light_energy = 16.0
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 0.76
+adjustment_enabled = true
+adjustment_saturation = 1.15
+
+[node name="Level_1" type="Node3D" unique_id=1826029615]
+
+[node name="CSGCombiner" type="CSGCombiner3D" parent="." unique_id=22454233]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.915907, 0)
+use_collision = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner" unique_id=90163769]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.45488834, -0.5)
+size = Vector3(1000, 1, 1000)
+material = ExtResource("1_8ffim")
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner" unique_id=1094117878]
+transform = Transform3D(-0.082912564, 0, -0.9965568, 0, 1, 0, 0.9965568, 0, -0.082912564, -10.868929, -0.13003063, -13.474648)
+polygon = PackedVector2Array(-6.7092266, -0.04121971, -0.5256071, 2.0788713, 4.7671003, 0.019878387, 1.02284, -0.08918667)
+depth = 74.53
+
+[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner" unique_id=372707910]
+transform = Transform3D(-0.082912564, 0, -0.9965568, 0, 1, 0, 0.9965568, 0, -0.082912564, -10.868929, -0.4515438, -37.697372)
+polygon = PackedVector2Array(0.20511246, 0.16842222, -0.5256071, 2.0788713, 4.7671003, 0.019878387, 1.02284, -0.08918667)
+depth = 74.53
+
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner" unique_id=771483719]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.319693, -1.1242208, -14.447993)
+radius = 3.369694
+
+[node name="Car" parent="." unique_id=1073571490 instance=ExtResource("2_8ffim")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=316294176]
+environment = SubResource("Environment_xfk5q")

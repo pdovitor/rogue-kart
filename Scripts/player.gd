@@ -29,7 +29,7 @@ var was_in_air = false
 
 var velocidade_kmh: int = 0
 
-var acceleration = 125.0
+var acceleration = 60.0
 var steering = 12.0
 var turn_speed = 5.5
 var body_tilt = 70
@@ -57,9 +57,23 @@ func _physics_process(delta):
 	SpringArm.rotation.y = lerp_angle(SpringArm.rotation.y, target_rotation, 8.0 * delta)
 	if not GroundRay.is_colliding():
 		was_in_air = true
-	elif was_in_air:
-		CarBody.scale = squash_scale # Esmaga o carro no chão!
-		was_in_air = false
+		
+		# Opcional: Faz o carro tentar voltar a ficar reto aos poucos enquanto cai no ar
+		#var upright_basis = Basis(Vector3.RIGHT, Vector3.UP, Vector3.BACK)
+		#Car.global_transform.basis = Car.global_transform.basis.slerp(upright_basis, 2.0 * delta)
+		
+	else:
+		if was_in_air:
+			#CarBody.scale = squash_scale # Esmaga o carro no chão!
+			was_in_air = false
+		var normal = GroundRay.get_collision_normal()
+		var forward = -Car.global_transform.basis.z 
+		if abs(normal.dot(forward)) < 0.99:
+			var right = forward.cross(normal).normalized()
+			var new_forward = normal.cross(right).normalized()
+			var target_basis = Basis(right, normal, -new_forward).orthonormalized()
+			var current_basis = Car.global_transform.basis.orthonormalized()
+			Car.global_transform.basis = current_basis.slerp(target_basis, 15.0 * delta)
 	
 func _process(delta):
 	var gas = Input.get_action_strength("Accelerate")
@@ -132,10 +146,10 @@ func _process(delta):
 		RotateCar(delta)
 	
 	var current_speed = Ball.linear_velocity.length()
-	var speed_factor = clamp(current_speed / 30.0, 0.0, 1.0)
+	var speed_factor = clamp(current_speed / 15.0, 0.0, 1.0)
 	
 	var base_fov = 75.0
-	var max_fov_add = 20.0
+	var max_fov_add = 25.0
 	
 	var base_spring_length = 3.5 # Distância normal da câmera
 	var max_length_add = 0.1
@@ -186,6 +200,12 @@ func _process(delta):
 	LeftWheel.rotation.x -= spin
 	LeftWheelBack.rotation.x -= spin
 	RightWheelBack.rotation.x -= spin
+	if gas == 0 and brake == 0 and vel_atual < 2.0:
+		Ball.linear_damp = 15.0 
+		Ball.angular_damp = 15.0
+	else:
+		Ball.linear_damp = 0.1 
+		Ball.angular_damp = 1.0
 
 func RotateCar(delta):
 	var new_basis = Car.global_transform.basis.rotated(Car.global_transform.basis.y, rotate_input)

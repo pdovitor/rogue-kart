@@ -414,7 +414,7 @@ render_target_update_mode = 4
 
 [node name="Ball" type="RigidBody3D" parent="SubViewportContainer/SubViewport" unique_id=853750109]
 physics_material_override = SubResource("PhysicsMaterial_go66d")
-gravity_scale = 10.0
+gravity_scale = 7.0
 linear_damp = 1.5
 angular_damp = 5.0
 
@@ -422,6 +422,7 @@ angular_damp = 5.0
 shape = SubResource("SphereShape3D_1sfmx")
 
 [node name="Car" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=902386891]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30020756, 0)
 
 [node name="Model" type="Node3D" parent="SubViewportContainer/SubViewport/Car" unique_id=1833414851]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5, 0)
@@ -505,6 +506,7 @@ process_material = SubResource("ParticleProcessMaterial_57vaf")
 draw_pass_1 = ExtResource("8_argdw")
 
 [node name="GroundRay" type="RayCast3D" parent="SubViewportContainer/SubViewport/Car" unique_id=673199066]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2973113, 0)
 
 [node name="DriftTimer" type="Timer" parent="SubViewportContainer/SubViewport" unique_id=1935430453]
 wait_time = 1.25
