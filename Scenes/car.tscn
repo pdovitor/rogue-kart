@@ -7,8 +7,8 @@
 [ext_resource type="ArrayMesh" uid="uid://bvfxo6twkhiuv" path="res://Assets/objects/sm_muzzleplane.obj" id="8_argdw"]
 
 [sub_resource type="Gradient" id="Gradient_vg03h"]
-offsets = PackedFloat32Array(0, 0.1953125, 0.64453125)
-colors = PackedColorArray(0.641934, 0.641934, 0.641934, 1, 0.9428228, 0.94282264, 0.94282264, 1, 1, 1, 1, 1)
+offsets = PackedFloat32Array(0, 0.1953125, 0.6404959)
+colors = PackedColorArray(0.8858106, 0.5437514, 0.3678084, 1, 0.9911942, 0.79043466, 0.68377674, 1, 0.96998924, 0.7500996, 0.63944465, 1)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_go66d"]
 bounce = 0.1

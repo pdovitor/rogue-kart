@@ -68,7 +68,7 @@ func start_game():
 	tween.tween_property(SpringArm, "rotation:y", Car.global_rotation.y, 1.8)
 	tween.tween_property(SpringArm, "rotation:x", deg_to_rad(-15.0), 1.8)
 	tween.tween_property(SpringArm, "spring_length", 3, 1.8)
-	tween.tween_property(Cam, "fov", 80.0, 1.8)
+	tween.tween_property(Cam, "fov", 75.0, 1.8)
 
 	await tween.finished
 	game_started = true
@@ -179,8 +179,8 @@ func _process(delta):
 	var current_speed = Ball.linear_velocity.length()
 	var speed_factor = clamp(current_speed / 15.0, 0.0, 1.0)
 	
-	var base_fov = 80.0
-	var max_fov_add = 20.0
+	var base_fov = 75.0
+	var max_fov_add = 25.0
 	
 	var base_spring_length = 3 # Distância normal da câmera
 	var max_length_add = 0.5
