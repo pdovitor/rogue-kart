@@ -1,10 +1,10 @@
-[gd_scene format=4 uid="uid://dc21ufy5yyg04"]
+[gd_scene format=4 uid="uid://cvccb13d5waa0"]
 
-[ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scripts/player.gd" id="1_go66d"]
-[ext_resource type="Material" uid="uid://bx8qt36yrfiib" path="res://Shaders/car1_celshaded.tres" id="2_argdw"]
-[ext_resource type="PackedScene" uid="uid://chu53sx4gme1e" path="res://Scenes/smoke_particles.tscn" id="5_u41r7"]
-[ext_resource type="Texture2D" uid="uid://rnby14qdn1wg" path="res://Assets/texture/Muzzle_Flash_3.png" id="7_y3wrf"]
-[ext_resource type="ArrayMesh" uid="uid://bvfxo6twkhiuv" path="res://Assets/objects/sm_muzzleplane.obj" id="8_argdw"]
+[ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scripts/player.gd" id="1_phln3"]
+[ext_resource type="Material" uid="uid://bx8qt36yrfiib" path="res://Shaders/car1_celshaded.tres" id="2_tj33v"]
+[ext_resource type="Texture2D" uid="uid://rnby14qdn1wg" path="res://Assets/texture/Muzzle_Flash_3.png" id="3_e2n1e"]
+[ext_resource type="ArrayMesh" uid="uid://bvfxo6twkhiuv" path="res://Assets/objects/sm_muzzleplane.obj" id="4_tb7rl"]
+[ext_resource type="PackedScene" uid="uid://chu53sx4gme1e" path="res://Scenes/smoke_particles.tscn" id="5_x6v8s"]
 
 [sub_resource type="Gradient" id="Gradient_vg03h"]
 offsets = PackedFloat32Array(0, 0.1953125, 0.64453125)
@@ -228,7 +228,7 @@ cull_mode = 2
 shading_mode = 0
 vertex_color_use_as_albedo = true
 vertex_color_is_srgb = true
-albedo_texture = ExtResource("7_y3wrf")
+albedo_texture = ExtResource("3_e2n1e")
 
 [sub_resource type="Curve" id="Curve_7dpuy"]
 _data = [Vector2(0, 0), 0.0, 3.3515255, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -248,7 +248,7 @@ length = 0.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Car/Model:position")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Car/Model:position")
 tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -263,7 +263,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("Car/Model:position")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/Car/Model:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -275,7 +275,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/1/path = NodePath("SubViewportContainer/SubViewport/SpringArm3D/Camera3D:fov")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -292,7 +292,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/SpringArm3D/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -309,7 +309,7 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SpringArm3D/Camera3D:fov")
+tracks/0/path = NodePath("SubViewportContainer/SubViewport/SpringArm3D/Camera3D:fov")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -328,59 +328,111 @@ _data = {
 }
 
 [node name="Car" type="Node3D" unique_id=1073571490 groups=["player"]]
-script = ExtResource("1_go66d")
+script = ExtResource("1_phln3")
 DriftSmokeColor = SubResource("Gradient_vg03h")
 ChargedDriftSmokeColor = SubResource("Gradient_vg03h")
 
-[node name="Ball" type="RigidBody3D" parent="." unique_id=853750109]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=187968252]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="MenuUI" type="CanvasLayer" parent="SubViewportContainer" unique_id=1326804436]
+
+[node name="Control" type="Control" parent="SubViewportContainer/MenuUI" unique_id=1804973300]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SubViewportContainer/MenuUI/Control" unique_id=1576475746]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -246.0
+offset_top = -177.0
+offset_right = 246.0
+offset_bottom = 177.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 255
+alignment = 1
+
+[node name="Label" type="Label" parent="SubViewportContainer/MenuUI/Control/VBoxContainer" unique_id=467231984]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 150
+text = "KART   "
+
+[node name="Button" type="Button" parent="SubViewportContainer/MenuUI/Control/VBoxContainer" unique_id=572806852]
+custom_minimum_size = Vector2(200, 50)
+layout_mode = 2
+theme_override_font_sizes/font_size = 86
+text = "JOGAR"
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=923126793]
+handle_input_locally = false
+size = Vector2i(1152, 648)
+render_target_update_mode = 4
+
+[node name="Ball" type="RigidBody3D" parent="SubViewportContainer/SubViewport" unique_id=853750109]
 physics_material_override = SubResource("PhysicsMaterial_go66d")
 gravity_scale = 7.0
 linear_damp = 1.5
 angular_damp = 5.0
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Ball" unique_id=1920842964]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/Ball" unique_id=1920842964]
 shape = SubResource("SphereShape3D_1sfmx")
 
-[node name="Car" type="Node3D" parent="." unique_id=902386891]
+[node name="Car" type="Node3D" parent="SubViewportContainer/SubViewport" unique_id=902386891]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.30020756, 0)
 
-[node name="Model" type="Node3D" parent="Car" unique_id=1833414851]
+[node name="Model" type="Node3D" parent="SubViewportContainer/SubViewport/Car" unique_id=1833414851]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5, 0)
 
-[node name="body" type="MeshInstance3D" parent="Car/Model" unique_id=1442358226]
+[node name="body" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model" unique_id=1442358226]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, -0.025)
 mesh = SubResource("ArrayMesh_ala6t")
-surface_material_override/0 = ExtResource("2_argdw")
+surface_material_override/0 = ExtResource("2_tj33v")
 
-[node name="spoiler" type="MeshInstance3D" parent="Car/Model/body" unique_id=2135005187]
+[node name="spoiler" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=2135005187]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, -1.0436862)
 mesh = SubResource("ArrayMesh_wulu8")
-surface_material_override/0 = ExtResource("2_argdw")
+surface_material_override/0 = ExtResource("2_tj33v")
 
-[node name="wheel-front-right" type="MeshInstance3D" parent="Car/Model/body" unique_id=1571387331]
+[node name="wheel-front-right" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1571387331]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.15, 0.68499994)
 mesh = SubResource("ArrayMesh_lbxhc")
-surface_material_override/0 = ExtResource("2_argdw")
+surface_material_override/0 = ExtResource("2_tj33v")
 
-[node name="wheel-back-left" type="MeshInstance3D" parent="Car/Model/body" unique_id=1067507388]
+[node name="wheel-back-left" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1067507388]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, -0.635)
 mesh = SubResource("ArrayMesh_dduxa")
-surface_material_override/0 = ExtResource("2_argdw")
+surface_material_override/0 = ExtResource("2_tj33v")
 
-[node name="wheel-front-left" type="MeshInstance3D" parent="Car/Model/body" unique_id=464664854]
+[node name="wheel-front-left" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=464664854]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3, 0.15, 0.68499994)
 mesh = SubResource("ArrayMesh_rybmm")
-surface_material_override/0 = ExtResource("2_argdw")
+surface_material_override/0 = ExtResource("2_tj33v")
 
-[node name="wheel-back-right" type="MeshInstance3D" parent="Car/Model/body" unique_id=988661029]
+[node name="wheel-back-right" type="MeshInstance3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=988661029]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.3, 0.15, -0.635)
 mesh = SubResource("ArrayMesh_534nx")
-surface_material_override/0 = ExtResource("2_argdw")
+surface_material_override/0 = ExtResource("2_tj33v")
 
-[node name="SparkRight" type="Node3D" parent="Car/Model/body" unique_id=1968083475]
+[node name="SparkRight" type="Node3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1968083475]
 transform = Transform3D(0.78512245, 0, 0.6193407, 0, 1, 0, -0.6193407, 0, 0.78512245, -0.52245975, 0.06806764, -0.66135406)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Car/Model/body/SparkRight" unique_id=2018080046]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body/SparkRight" unique_id=2018080046]
 material_override = SubResource("StandardMaterial3D_lh2yg")
 emitting = false
 amount = 2
@@ -389,12 +441,12 @@ randomness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_57vaf")
-draw_pass_1 = ExtResource("8_argdw")
+draw_pass_1 = ExtResource("4_tb7rl")
 
-[node name="SparkLeft" type="Node3D" parent="Car/Model/body" unique_id=889568673]
+[node name="SparkLeft" type="Node3D" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=889568673]
 transform = Transform3D(0.786489, -0.3759188, -0.49002063, 0.23918106, 0.91689986, -0.3195105, 0.5694099, 0.13408783, 0.8110444, 0.5226732, 0.039744377, -0.64639443)
 
-[node name="GPUParticles3D" type="GPUParticles3D" parent="Car/Model/body/SparkLeft" unique_id=1562631813]
+[node name="GPUParticles3D" type="GPUParticles3D" parent="SubViewportContainer/SubViewport/Car/Model/body/SparkLeft" unique_id=1562631813]
 material_override = SubResource("StandardMaterial3D_lh2yg")
 emitting = false
 amount = 2
@@ -403,34 +455,36 @@ randomness = 1.0
 fixed_fps = 60
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_57vaf")
-draw_pass_1 = ExtResource("8_argdw")
+draw_pass_1 = ExtResource("4_tb7rl")
 
-[node name="SmokeParticlesRight" parent="Car/Model/body" unique_id=1069200227 instance=ExtResource("5_u41r7")]
+[node name="SmokeParticlesRight" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1069200227 instance=ExtResource("5_x6v8s")]
 transform = Transform3D(1, 1.3335257e-08, 1.7382251e-07, -1.33352955e-08, -0.9882977, 0.1525374, 1.7382244e-07, -0.1525374, -0.9882977, -0.41845423, -0.13630506, -0.5487307)
 
-[node name="SmokeParticlesLeft" parent="Car/Model/body" unique_id=1238096640 instance=ExtResource("5_u41r7")]
+[node name="SmokeParticlesLeft" parent="SubViewportContainer/SubViewport/Car/Model/body" unique_id=1238096640 instance=ExtResource("5_x6v8s")]
 transform = Transform3D(1, 8.7166654e-08, 8.073556e-08, -8.716663e-08, 0.076492816, 0.99707013, 8.0735504e-08, -0.99707013, 0.076492816, 0.576018, -0.12912998, -0.5371132)
 
-[node name="GroundRay" type="RayCast3D" parent="Car" unique_id=673199066]
+[node name="GroundRay" type="RayCast3D" parent="SubViewportContainer/SubViewport/Car" unique_id=673199066]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2973113, 0)
 
-[node name="DriftTimer" type="Timer" parent="." unique_id=1935430453]
+[node name="DriftTimer" type="Timer" parent="SubViewportContainer/SubViewport" unique_id=1935430453]
 wait_time = 1.25
 one_shot = true
 
-[node name="BoostTimer" type="Timer" parent="." unique_id=1075040308]
+[node name="BoostTimer" type="Timer" parent="SubViewportContainer/SubViewport" unique_id=1075040308]
 wait_time = 0.8
 one_shot = true
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=276971200]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="SubViewportContainer/SubViewport" unique_id=276971200]
+root_node = NodePath("../../..")
 libraries/ = SubResource("AnimationLibrary_yi23e")
 
-[node name="SpringArm3D" type="SpringArm3D" parent="." unique_id=1621489466]
+[node name="SpringArm3D" type="SpringArm3D" parent="SubViewportContainer/SubViewport" unique_id=1621489466]
 spring_length = 3.5
 margin = 5.0
 
-[node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=202241637]
+[node name="Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport/SpringArm3D" unique_id=202241637]
 fov = 80.0
 
-[connection signal="timeout" from="DriftTimer" to="." method="_on_drift_timer_timeout"]
-[connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]
+[connection signal="pressed" from="SubViewportContainer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/DriftTimer" to="." method="_on_drift_timer_timeout"]
+[connection signal="timeout" from="SubViewportContainer/SubViewport/BoostTimer" to="." method="_on_boost_timer_timeout"]

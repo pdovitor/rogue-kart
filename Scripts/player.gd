@@ -1,25 +1,27 @@
 extends Node3D
 
-@onready var Ball = $SubViewportContainer/SubViewport/Ball
-@onready var Car = $SubViewportContainer/SubViewport/Car
-@onready var RightWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-right"
-@onready var LeftWheel = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-front-left"
-@onready var LeftWheelBack = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-back-left"
-@onready var RightWheelBack = $"SubViewportContainer/SubViewport/Car/Model/body/wheel-back-right"
-@onready var CarBody = $SubViewportContainer/SubViewport/Car/Model/body
-@onready var DriftTimer = $SubViewportContainer/SubViewport/DriftTimer
-@onready var BoostTimer = $SubViewportContainer/SubViewport/BoostTimer
-@onready var Anim = $SubViewportContainer/SubViewport/AnimationPlayer
-@onready var SpringArm = $SubViewportContainer/SubViewport/SpringArm3D
-@onready var Cam = $SubViewportContainer/SubViewport/SpringArm3D/Camera3D
-@onready var GroundRay = $SubViewportContainer/SubViewport/Car/GroundRay
-@onready var SmokeParticlesRight = $SubViewportContainer/SubViewport/Car/Model/body/SmokeParticlesRight
-@onready var SmokeParticlesLeft = $SubViewportContainer/SubViewport/Car/Model/body/SmokeParticlesLeft
-@onready var SparkParticlesLeft = $SubViewportContainer/SubViewport/Car/Model/body/SparkLeft/GPUParticles3D
-@onready var SparkParticlesRight = $SubViewportContainer/SubViewport/Car/Model/body/SparkRight/GPUParticles3D
+@onready var Ball = $Ball
+@onready var Car = $Car
+@onready var RightWheel = $"Car/Model/body/wheel-front-right"
+@onready var LeftWheel = $"Car/Model/body/wheel-front-left"
+@onready var LeftWheelBack = $"Car/Model/body/wheel-back-left"
+@onready var RightWheelBack = $"Car/Model/body/wheel-back-right"
+@onready var CarBody = $Car/Model/body
+@onready var DriftTimer = $DriftTimer
+@onready var BoostTimer = $BoostTimer
+@onready var Anim = $AnimationPlayer
+@onready var SpringArm = $SpringArm3D
+@onready var Cam = $SpringArm3D/Camera3D
+@onready var GroundRay = $Car/GroundRay
+@onready var SmokeParticlesRight = $"Car/Model/body/SmokeParticlesRight"
+@onready var SmokeParticlesLeft = $"Car/Model/body/SmokeParticlesLeft"
+@onready var SparkParticlesLeft = $"Car/Model/body/SparkLeft/GPUParticles3D"
+@onready var SparkParticlesRight = $"Car/Model/body/SparkRight/GPUParticles3D"
 
 @export var DriftSmokeColor : Gradient
 @export var ChargedDriftSmokeColor : Gradient
+@export var player_id: int = 1
+
 
 var game_started = false
 
@@ -49,25 +51,15 @@ var DriftBoost = 1.75
 
 func _ready():
 	game_started = false
-	_setup_menu_camera()
-
-func _setup_menu_camera():
-	# Posiciona o SpringArm já em cima do carro antes de tudo
-	SpringArm.global_position = Car.global_position + Vector3(0, 1.5, 0)
-	# Câmera de lado: rotation.y de lado, rotation.x igual ao do jogo (0.0)
+	SpringArm.global_position = Car.global_position + Vector3(-1.5, 1.5, 0)
 	SpringArm.rotation.y = deg_to_rad(150.0)
 	SpringArm.rotation.x = 0.0
 	SpringArm.spring_length = 7.5
 	Cam.fov = 60.0
-	$SubViewportContainer/MenuUI.visible = true
 
 func start_game():
-	$SubViewportContainer/MenuUI.visible = false
-
-	# Garante que o SpringArm está na posição correta antes de animar
 	SpringArm.global_position = Car.global_position + Vector3(0, 1.5, 0)
 
-	# Animação da câmera: de lado → atrás do carro
 	var tween = create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT)
 	tween.set_trans(Tween.TRANS_CUBIC)
@@ -75,8 +67,8 @@ func start_game():
 
 	tween.tween_property(SpringArm, "rotation:y", Car.global_rotation.y, 1.8)
 	tween.tween_property(SpringArm, "rotation:x", deg_to_rad(-15.0), 1.8)
-	tween.tween_property(SpringArm, "spring_length", 3.5, 1.8)
-	tween.tween_property(Cam, "fov", 75.0, 1.8)
+	tween.tween_property(SpringArm, "spring_length", 3, 1.8)
+	tween.tween_property(Cam, "fov", 80.0, 1.8)
 
 	await tween.finished
 	game_started = true
@@ -92,11 +84,10 @@ func _physics_process(delta):
 	SpringArm.global_position = SpringArm.global_position.lerp(target_pos, 40 * delta)
 	
 	var target_rotation = Car.global_rotation.y
-	SpringArm.rotation.y = lerp_angle(SpringArm.rotation.y, target_rotation, 8.0 * delta)
+	SpringArm.rotation.y = lerp_angle(SpringArm.rotation.y, target_rotation, 12.0 * delta)
 	if not GroundRay.is_colliding():
 		was_in_air = true
 		
-		# Opcional: Faz o carro tentar voltar a ficar reto aos poucos enquanto cai no ar
 		var upright_basis = Basis(Vector3.RIGHT, Vector3.UP, Vector3.BACK)
 		Car.global_transform.basis = Car.global_transform.basis.slerp(upright_basis, 2.0 * delta)
 		
@@ -116,8 +107,8 @@ func _physics_process(delta):
 func _process(delta):
 	if not game_started:
 		return
-	var gas = Input.get_action_strength("Accelerate")
-	var brake = Input.get_action_strength("Brake")
+	var gas = Input.get_action_strength("p%d_accelerate" % player_id)
+	var brake = Input.get_action_strength("p%d_brake" % player_id)
 	var vel_atual = Ball.linear_velocity.length()
 	
 	var target_speed = (gas - brake) * acceleration
@@ -133,7 +124,7 @@ func _process(delta):
 	
 	speed_input = move_toward(speed_input, target_speed, pedal_response * delta)
 	
-	var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right") #
+	var steer_direction = Input.get_action_strength("p%d_steer_left" % player_id) - Input.get_action_strength("p%d_steer_right" % player_id)
 	
 	if speed_input < 0:
 		steer_direction = -steer_direction
@@ -152,7 +143,7 @@ func _process(delta):
 	RightWheel.rotation.y = 1.5 * rotate_input
 	LeftWheel.rotation.y = 1.5 * rotate_input
 	
-	if Input.is_action_just_pressed("Drift") and not Drifting and speed_input > 0 and CanDrift:
+	if Input.is_action_just_pressed("p%d_drift" % player_id) and not Drifting and speed_input > 0 and CanDrift:
 		Anim.play("Hop")
 		Ball.linear_velocity.y = 0 
 		Ball.apply_central_impulse(Vector3.UP * hop_force)
@@ -169,14 +160,14 @@ func _process(delta):
 	CarBody.rotation.y = lerp_angle(CarBody.rotation.y, angulo_visual_alvo, 5.0 * delta)
 
 	if Drifting:
-		var raw_steer = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
+		var raw_steer = Input.get_action_strength("p%d_steer_left" % player_id) - Input.get_action_strength("p%d_steer_right" % player_id)
 		
 		var forca_automatica = DriftDirection * deg_to_rad(steering * 0.8)
 		
 		var ajuste_jogador = raw_steer * deg_to_rad(steering * 0.5)
 		rotate_input = forca_automatica + ajuste_jogador
 
-	if Drifting and (Input.is_action_just_released("Drift") or speed_input < 0.5):
+	if Drifting and (Input.is_action_just_released("p%d_drift" % player_id) or speed_input < 0.5):
 		StopDrift()
 		
 	var velocidade_atual = Ball.linear_velocity.length()
@@ -188,11 +179,11 @@ func _process(delta):
 	var current_speed = Ball.linear_velocity.length()
 	var speed_factor = clamp(current_speed / 15.0, 0.0, 1.0)
 	
-	var base_fov = 75.0
-	var max_fov_add = 25.0
+	var base_fov = 80.0
+	var max_fov_add = 20.0
 	
-	var base_spring_length = 3.5 # Distância normal da câmera
-	var max_length_add = 0.1
+	var base_spring_length = 3 # Distância normal da câmera
+	var max_length_add = 0.5
 	
 	var target_fov = base_fov + (max_fov_add * speed_factor)
 	var target_length = base_spring_length + (max_length_add * speed_factor)
@@ -261,7 +252,7 @@ func StartDrift():
 		DriftTimer.start()
 		change_smoke_color(DriftSmokeColor)
 		
-		var steer_direction = Input.get_action_strength("Steer_Left") - Input.get_action_strength("Steer_Right")
+		var steer_direction = Input.get_action_strength("p%d_steer_left" % player_id) - Input.get_action_strength("p%d_steer_right" % player_id)
 		DriftDirection = sign(steer_direction)
 		if DriftDirection == 0:
 			DriftDirection = 1
@@ -292,7 +283,3 @@ func change_smoke_color(new_gradient: Gradient):
 	
 	left_ramp.gradient = new_gradient
 	right_ramp.gradient = new_gradient
-
-
-func _on_button_pressed() -> void:
-	start_game()
