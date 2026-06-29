@@ -1,10 +1,6 @@
-[gd_scene format=3 uid="uid://hvl6s3mkfk4e"]
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bx8qt36yrfiib"]
 
-[ext_resource type="Material" uid="uid://csa26utrxtm0l" path="res://Assets/st3d_prototype_black.tres" id="1_8ffim"]
-[ext_resource type="PackedScene" uid="uid://dc21ufy5yyg04" path="res://Scenes/car.tscn" id="2_8ffim"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7p6j4"]
-resource_name = "GobotMat"
+[ext_resource type="Texture2D" uid="uid://dk3n7wxyuyuo8" path="res://Assets/aliens/colormap.png" id="1_nsdv0"]
 
 [sub_resource type="Shader" id="Shader_4oepr"]
 code = "// NOTE: Shader automatically converted from Godot Engine 4.2.1.stable's StandardMaterial3D.
@@ -77,11 +73,12 @@ offsets = PackedFloat32Array(0.633929, 1)
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_ovwhm"]
 gradient = SubResource("Gradient_kgq3v")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8ffim"]
+[resource]
 resource_name = "GobotMat"
 render_priority = 0
 shader = SubResource("Shader_4oepr")
 shader_parameter/albedo = Color(1, 1, 1, 1)
+shader_parameter/texture_albedo = ExtResource("1_nsdv0")
 shader_parameter/point_size = 1.0
 shader_parameter/roughness = 0.50000002375
 shader_parameter/metallic_texture_channel = Vector4(0, 0, 0, 0)
@@ -94,44 +91,3 @@ shader_parameter/uv2_scale = Vector3(1, 1, 1)
 shader_parameter/uv2_offset = Vector3(0, 0, 0)
 shader_parameter/color_gradient = SubResource("GradientTexture1D_kgg7x")
 shader_parameter/color_ramp3 = SubResource("GradientTexture1D_ovwhm")
-
-[node name="Level_1" type="Node3D" unique_id=1826029615]
-
-[node name="CSGCombiner" type="CSGCombiner3D" parent="." unique_id=22454233]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.915907, 0)
-use_collision = true
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner" unique_id=90163769]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.5, -0.45488834, -0.5)
-size = Vector3(1000, 1, 1000)
-material = ExtResource("1_8ffim")
-
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="CSGCombiner" unique_id=1094117878]
-transform = Transform3D(-0.082912564, 0, -0.9965568, 0, 1, 0, 0.9965568, 0, -0.082912564, -10.868929, -0.13003063, -13.474648)
-polygon = PackedVector2Array(-6.7092266, -0.04121971, -0.5256071, 2.0788713, 4.7671003, 0.019878387, 1.02284, -0.08918667)
-depth = 74.53
-material = SubResource("ShaderMaterial_7p6j4")
-
-[node name="CSGPolygon3D2" type="CSGPolygon3D" parent="CSGCombiner" unique_id=372707910]
-transform = Transform3D(-0.082912564, 0, -0.9965568, 0, 1, 0, 0.9965568, 0, -0.082912564, -10.868929, -0.4515438, -37.697372)
-polygon = PackedVector2Array(0.20511246, 0.16842222, -0.5256071, 2.0788713, 4.7671003, 0.019878387, 1.02284, -0.08918667)
-depth = 74.53
-material = SubResource("ShaderMaterial_7p6j4")
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner" unique_id=771483719]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.319693, -1.1242208, -14.447993)
-radius = 3.369694
-material = SubResource("ShaderMaterial_7p6j4")
-
-[node name="esfera" type="CSGSphere3D" parent="CSGCombiner" unique_id=1896262925]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.639385, 10.790676, -28.895987)
-radius = 3.369694
-radial_segments = 20
-rings = 20
-material = SubResource("ShaderMaterial_8ffim")
-
-[node name="Car" parent="." unique_id=1073571490 instance=ExtResource("2_8ffim")]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=407906044]
-transform = Transform3D(1, 0, 0, 0, 0.2079458, 0.97814035, 0, -0.97814035, 0.2079458, 0, 83.71335, 0)
-shadow_blur = 1.692

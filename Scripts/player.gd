@@ -21,6 +21,8 @@ extends Node3D
 @export var DriftSmokeColor : Gradient
 @export var ChargedDriftSmokeColor : Gradient
 
+var game_started = false
+
 var standard_scale = Vector3(1, 1, 1)
 var squash_scale = Vector3(1.4, 0.5, 1.4) # Achatado no impacto
 var stretch_scale = Vector3(0.9, 1.2, 0.9) # Esticado no pulo
@@ -45,7 +47,43 @@ var MinimumDrift = false
 var Boost = 1
 var DriftBoost = 1.75
 
+func _ready():
+	game_started = false
+	_setup_menu_camera()
+
+func _setup_menu_camera():
+	# Posiciona o SpringArm já em cima do carro antes de tudo
+	SpringArm.global_position = Car.global_position + Vector3(0, 1.5, 0)
+	# Câmera de lado: rotation.y de lado, rotation.x igual ao do jogo (0.0)
+	SpringArm.rotation.y = deg_to_rad(150.0)
+	SpringArm.rotation.x = 0.0
+	SpringArm.spring_length = 7.5
+	Cam.fov = 60.0
+	$SubViewportContainer/MenuUI.visible = true
+
+func start_game():
+	$SubViewportContainer/MenuUI.visible = false
+
+	# Garante que o SpringArm está na posição correta antes de animar
+	SpringArm.global_position = Car.global_position + Vector3(0, 1.5, 0)
+
+	# Animação da câmera: de lado → atrás do carro
+	var tween = create_tween()
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_CUBIC)
+	tween.set_parallel(true)
+
+	tween.tween_property(SpringArm, "rotation:y", Car.global_rotation.y, 1.8)
+	tween.tween_property(SpringArm, "rotation:x", deg_to_rad(-15.0), 1.8)
+	tween.tween_property(SpringArm, "spring_length", 3.5, 1.8)
+	tween.tween_property(Cam, "fov", 75.0, 1.8)
+
+	await tween.finished
+	game_started = true
+
 func _physics_process(delta):
+	if not game_started:
+		return
 	Car.transform.origin = Ball.transform.origin
 	Ball.apply_central_force(-Car.global_transform.basis.z * speed_input * Boost)
 	var height_offset = Vector3(0, 1.5, 0) 
@@ -59,8 +97,8 @@ func _physics_process(delta):
 		was_in_air = true
 		
 		# Opcional: Faz o carro tentar voltar a ficar reto aos poucos enquanto cai no ar
-		#var upright_basis = Basis(Vector3.RIGHT, Vector3.UP, Vector3.BACK)
-		#Car.global_transform.basis = Car.global_transform.basis.slerp(upright_basis, 2.0 * delta)
+		var upright_basis = Basis(Vector3.RIGHT, Vector3.UP, Vector3.BACK)
+		Car.global_transform.basis = Car.global_transform.basis.slerp(upright_basis, 2.0 * delta)
 		
 	else:
 		if was_in_air:
@@ -76,6 +114,8 @@ func _physics_process(delta):
 			Car.global_transform.basis = current_basis.slerp(target_basis, 15.0 * delta)
 	
 func _process(delta):
+	if not game_started:
+		return
 	var gas = Input.get_action_strength("Accelerate")
 	var brake = Input.get_action_strength("Brake")
 	var vel_atual = Ball.linear_velocity.length()
@@ -252,3 +292,7 @@ func change_smoke_color(new_gradient: Gradient):
 	
 	left_ramp.gradient = new_gradient
 	right_ramp.gradient = new_gradient
+
+
+func _on_button_pressed() -> void:
+	start_game()

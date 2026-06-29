@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Rogue Kart"
-run/main_scene="uid://d2brewvsccuxy"
+run/main_scene="uid://hvkg764oev3x"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

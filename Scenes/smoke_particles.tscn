@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://chu53sx4gme1e"]
+
+[ext_resource type="Shader" uid="uid://dxuqb70coe8h2" path="res://Shaders/smoke_shader.tres" id="1_01yuv"]
+[ext_resource type="Texture2D" uid="uid://by24ursm66ip3" path="res://Assets/texture/T_Noise_001R.png" id="2_8htv4"]
+[ext_resource type="Material" uid="uid://dbc3ki47t7aj6" path="res://Shaders/smoke_particle_process_material.tres" id="3_4h7m0"]
+[ext_resource type="ArrayMesh" uid="uid://c7fctk1cdvik0" path="res://Assets/objects/sm_cloud.obj" id="4_0js4m"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y3wrf"]
+render_priority = 0
+shader = ExtResource("1_01yuv")
+shader_parameter/Texture_Scale = Vector2(0.5, 0.5)
+shader_parameter/Disolver_Texture = ExtResource("2_8htv4")
+
+[node name="SmokeParticlesLeft" type="GPUParticles3D" unique_id=1069200227]
+transform = Transform3D(1, 8.7166654e-08, 8.073556e-08, -8.716663e-08, 0.076492816, 0.99707013, 8.0735504e-08, -0.99707013, 0.076492816, 0, 0, 0)
+material_override = SubResource("ShaderMaterial_y3wrf")
+cast_shadow = 0
+emitting = false
+amount = 76
+lifetime = 0.2
+fixed_fps = 60
+process_material = ExtResource("3_4h7m0")
+draw_pass_1 = ExtResource("4_0js4m")
