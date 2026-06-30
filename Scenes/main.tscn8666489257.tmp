@@ -14,7 +14,6 @@
 [ext_resource type="FontFile" uid="uid://bfs211tppq4ev" path="res://Assets/fontfamily/Syncopate-Bold.ttf" id="9_jkdf5"]
 [ext_resource type="PackedScene" uid="uid://dgcussd5dgu33" path="res://Scenes/car_hatchback.tscn" id="10_hptm8"]
 [ext_resource type="Texture2D" uid="uid://bxfead621yrma" path="res://Assets/botoes/button_square_flat.png" id="11_fdnlq"]
-[ext_resource type="Shader" uid="uid://cdg6d273me522" path="res://Scenes/stylized_sky.gdshader" id="15_wsu2k"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oda2d"]
 resource_name = "CurbeColor"
@@ -345,39 +344,6 @@ Button/styles/hover = SubResource("StyleBoxTexture_fdnlq")
 Button/styles/normal = SubResource("StyleBoxTexture_6iyac")
 Button/styles/pressed = SubResource("StyleBoxTexture_jkdf5")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_k12tt"]
-shader = ExtResource("15_wsu2k")
-shader_parameter/offset_horizon = -0.19999998807903996
-shader_parameter/horizon_intensity = -2.5309996452225
-shader_parameter/sun_set = Color(0.8515284, 0.99999994, 0.9979184, 1)
-shader_parameter/horizon_color_day = Color(0, 0.8, 1, 1)
-shader_parameter/horizon_color_night = Color(0, 0.8, 1, 1)
-shader_parameter/sun_color = Color(1, 1, 1, 1)
-shader_parameter/sun_radius = 0.5
-shader_parameter/flat_sun = true
-shader_parameter/moon_color = Color(1, 1, 1, 1)
-shader_parameter/moon_radius = 0.15
-shader_parameter/moon_crescent = -0.3
-shader_parameter/dark_falloff = 4.0
-shader_parameter/day_bottom_color = Color(0.4, 1, 1, 1)
-shader_parameter/day_top_color = Color(0, 0.8, 1, 1)
-shader_parameter/night_bottom_color = Color(0, 0, 0.2, 1)
-shader_parameter/night_top_color = Color(0, 0, 0, 1)
-shader_parameter/base_noise_scale = 0.2
-shader_parameter/stars_speed = 0.3
-shader_parameter/stars_cutoff = 0.08
-shader_parameter/stars_sky_color = Color(0, 0.2, 0.1, 1)
-
-[sub_resource type="Sky" id="Sky_h1bgf"]
-sky_material = SubResource("ShaderMaterial_k12tt")
-radiance_size = 0
-
-[sub_resource type="Environment" id="Environment_b3802"]
-background_mode = 2
-sky = SubResource("Sky_h1bgf")
-ambient_light_source = 1
-reflected_light_source = 1
-
 [node name="main" type="Node3D" unique_id=277975496]
 script = ExtResource("1_ynf5e")
 
@@ -452,6 +418,7 @@ theme_override_colors/font_outline_color = Color(0.4, 0.40784314, 0.5019608, 1)
 theme_override_constants/outline_size = 25
 theme_override_fonts/font = ExtResource("9_jkdf5")
 theme_override_font_sizes/font_size = 150
+text = "KART"
 
 [node name="Button" type="Button" parent="CanvasLayer/MenuUI/Control/VBoxContainer" unique_id=1200144248]
 layout_mode = 2
@@ -505,8 +472,5 @@ render_target_update_mode = 0
 [node name="Car" parent="Control/HBoxContainer/SubViewportContainer2/SubViewport" unique_id=601471333 instance=ExtResource("10_hptm8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.848927, 2.966, 86.252556)
 player_id = 2
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=242407842]
-environment = SubResource("Environment_b3802")
 
 [connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]

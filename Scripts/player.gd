@@ -15,8 +15,8 @@ extends Node3D
 @onready var GroundRay = $Car/GroundRay
 @onready var SmokeParticlesRight = $"Car/Model/body/SmokeParticlesRight"
 @onready var SmokeParticlesLeft = $"Car/Model/body/SmokeParticlesLeft"
-@onready var SparkParticlesLeft = $"Car/Model/body/SparkLeft/GPUParticles3D"
-@onready var SparkParticlesRight = $"Car/Model/body/SparkRight/GPUParticles3D"
+#@onready var SparkParticlesLeft = $"Car/Model/body/SparkLeft/GPUParticles3D"
+#@onready var SparkParticlesRight = $"Car/Model/body/SparkRight/GPUParticles3D"
 
 @export var DriftSmokeColor : Gradient
 @export var ChargedDriftSmokeColor : Gradient
@@ -49,11 +49,16 @@ var MinimumDrift = false
 var Boost = 1
 var DriftBoost = 1.75
 
+var base_spring_length = 3.5
+var base_fov = 75.0
+var max_fov_add = 25.0
+var max_length_add = 0.5
+
 func _ready():
 	game_started = false
-	SpringArm.global_position = Car.global_position + Vector3(-1.5, 1.5, 0)
+	SpringArm.global_position = Car.global_position + Vector3(-1.5, 1.25, 0)
 	SpringArm.rotation.y = deg_to_rad(150.0)
-	SpringArm.rotation.x = 0.0
+	SpringArm.rotation.x = deg_to_rad(5.0)
 	SpringArm.spring_length = 7.5
 	Cam.fov = 60.0
 
@@ -67,8 +72,8 @@ func start_game():
 
 	tween.tween_property(SpringArm, "rotation:y", Car.global_rotation.y, 1.8)
 	tween.tween_property(SpringArm, "rotation:x", deg_to_rad(-15.0), 1.8)
-	tween.tween_property(SpringArm, "spring_length", 3, 1.8)
-	tween.tween_property(Cam, "fov", 75.0, 1.8)
+	tween.tween_property(SpringArm, "spring_length", base_spring_length, 1.8)
+	tween.tween_property(Cam, "fov", base_fov, 1.8)
 
 	await tween.finished
 	game_started = true
@@ -140,8 +145,8 @@ func _process(delta):
 
 	rotate_input = deg_to_rad(steering) * steer_direction * multiplicador_curva
 	
-	RightWheel.rotation.y = 1.5 * rotate_input
-	LeftWheel.rotation.y = 1.5 * rotate_input
+	RightWheel.rotation.y = 2.0 * rotate_input
+	LeftWheel.rotation.y = 2.0 * rotate_input
 	
 	if Input.is_action_just_pressed("p%d_drift" % player_id) and not Drifting and speed_input > 0 and CanDrift:
 		Anim.play("Hop")
@@ -178,12 +183,6 @@ func _process(delta):
 	
 	var current_speed = Ball.linear_velocity.length()
 	var speed_factor = clamp(current_speed / 15.0, 0.0, 1.0)
-	
-	var base_fov = 75.0
-	var max_fov_add = 25.0
-	
-	var base_spring_length = 3 # Distância normal da câmera
-	var max_length_add = 0.5
 	
 	var target_fov = base_fov + (max_fov_add * speed_factor)
 	var target_length = base_spring_length + (max_length_add * speed_factor)
