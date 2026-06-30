@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://7upmiylmrku8" path="res://Assets/SouthLoop_Image_5.png" id="7_fdnlq"]
 [ext_resource type="Texture2D" uid="uid://c5sblwehquu81" path="res://Assets/SouthLoop_Image_6.png" id="8_jkdf5"]
 [ext_resource type="FontFile" uid="uid://bfs211tppq4ev" path="res://Assets/fontfamily/Syncopate-Bold.ttf" id="9_jkdf5"]
+[ext_resource type="PackedScene" uid="uid://cd4kkpogdsn7u" path="res://Assets/flagCheckers.glb" id="9_jwpg7"]
 [ext_resource type="PackedScene" uid="uid://dgcussd5dgu33" path="res://Scenes/car_hatchback.tscn" id="10_hptm8"]
 [ext_resource type="Theme" uid="uid://c78ld46nwnhwr" path="res://UI/medium_button.tres" id="10_wsu2k"]
 [ext_resource type="Theme" uid="uid://o5rcblp4crgv" path="res://UI/small_button.tres" id="11_k12tt"]
@@ -30,12 +31,12 @@
 [ext_resource type="Texture2D" uid="uid://yl75xq6w0s2e" path="res://Assets/controls/keyboard_enter.png" id="16_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://ce43s4qyeihvd" path="res://Assets/controls/playstation4_button_options.png" id="16_536cc"]
 [ext_resource type="Script" uid="uid://nkeohvy6a8qu" path="res://Scenes/race_manager.gd" id="16_k12tt"]
+[ext_resource type="AudioStream" uid="uid://dnv4gn1kc0fcp" path="res://Assets/mp3/519996__tictac9__interstellar-game-music-tictac9.wav" id="17_h1bgf"]
 [ext_resource type="Texture2D" uid="uid://cm17j0plv27d0" path="res://Assets/controls/keyboard_escape.png" id="22_cbgmd"]
 [ext_resource type="Texture2D" uid="uid://bdk8uwfi601di" path="res://Assets/icon_circle.png" id="23_ueoa1"]
 [ext_resource type="Texture2D" uid="uid://dw62r7apg77n3" path="res://Assets/icon_outline_circle.png" id="24_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://1qrutgbcyh7r" path="res://Assets/arrow_basic_e_small.png" id="25_7k868"]
 [ext_resource type="Texture2D" uid="uid://dkr38btv451gl" path="res://Assets/arrow_basic_w_small.png" id="26_7k868"]
-[ext_resource type="AudioStream" uid="uid://dnv4gn1kc0fcp" path="res://Assets/mp3/519996__tictac9__interstellar-game-music-tictac9.wav" id="17_h1bgf"]
 
 [sub_resource type="Curve3D" id="Curve3D_wsu2k"]
 closed = true
@@ -365,7 +366,7 @@ shader_parameter/sun_set = Color(0.8515284, 0.99999994, 0.9979184, 1)
 shader_parameter/horizon_color_day = Color(0, 0.8, 1, 1)
 shader_parameter/horizon_color_night = Color(0, 0.8, 1, 1)
 shader_parameter/sun_color = Color(1, 1, 1, 1)
-shader_parameter/sun_radius = 0.5
+shader_parameter/sun_radius = 0.30800001463
 shader_parameter/flat_sun = true
 shader_parameter/moon_color = Color(1, 1, 1, 1)
 shader_parameter/moon_radius = 0.15
@@ -580,6 +581,9 @@ mesh = SubResource("ArrayMesh_8gsh3")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/SouthLoop/StaticBody3D" unique_id=1764169108]
 visible = false
 shape = SubResource("ConcavePolygonShape3D_fj0dj")
+
+[node name="flagCheckers" parent="SouthLoop" unique_id=563754301 instance=ExtResource("9_jwpg7")]
+transform = Transform3D(26.885, 0, 0, 0, 26.885, 0, 0, 0, 26.885, 31.349426, 1.5760317, 86.638885)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=23873339]
 
@@ -1781,7 +1785,7 @@ theme = SubResource("Theme_h1bgf")
 text = "0/3"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1281289413]
-transform = Transform3D(1, 0, 0, 0, 0.08675587, 0.9962295, 0, -0.9962295, 0.08675587, 0, 3442.139, 0)
+transform = Transform3D(1, 0, 0, 0, 0.08675588, 0.9962296, 0, -0.9962296, 0.08675588, 0, 409.41742, 0)
 shadow_blur = 0.0
 
 [node name="Control" type="Control" parent="." unique_id=1969294569]
@@ -1839,18 +1843,18 @@ script = ExtResource("16_k12tt")
 total_laps = 2
 path = NodePath("../SouthLoop/RacingLine")
 
-[connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Controls" to="." method="_on_controls_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Play" to="." method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/ControlsScreen/Back" to="." method="_on_back_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/ControlsScreen/Back" to="." method="_on_controls_back_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/SettingsScreen/Back" to="." method="_on_settings_back_pressed"]
-[connection signal="toggled" from="CanvasLayer/MenuUI/SettingsScreen/Controls/CheckButton" to="." method="_on_check_button_toggled"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/PauseScreen/Back" to="." method="_on_back_pause_pressed"]
-[connection signal="pressed" from="CanvasLayer/MenuUI/PauseScreen/Restart" to="." method="_on_restart_pressed"]
 [node name="Soundtrack" type="AudioStreamPlayer" parent="." unique_id=207300116]
 stream = ExtResource("17_h1bgf")
 volume_db = -17.0
 autoplay = true
 
-[connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Controls" to="." method="_on_controls_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Play" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Settings" to="." method="_on_settings_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/ControlsScreen/Back" to="." method="_on_controls_back_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/SettingsScreen/Back" to="." method="_on_settings_back_pressed"]
+[connection signal="value_changed" from="CanvasLayer/MenuUI/SettingsScreen/Volume/HSlider" to="." method="_on_h_slider_value_changed"]
+[connection signal="toggled" from="CanvasLayer/MenuUI/SettingsScreen/Controls/CheckButton" to="." method="_on_check_button_toggled"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/PauseScreen/Back" to="." method="_on_back_pause_pressed"]
+[connection signal="pressed" from="CanvasLayer/MenuUI/PauseScreen/Restart" to="." method="_on_restart_pressed"]
+[connection signal="finished" from="Soundtrack" to="." method="_on_soundtrack_finished"]

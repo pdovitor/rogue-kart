@@ -223,6 +223,9 @@ func _process(delta):
 		
 		SmokeParticlesRight.amount_ratio = smoke_factor
 		SmokeParticlesLeft.amount_ratio = smoke_factor
+
+		var target_pitch = clamp(0.85 + speed_for_smoke / 30.0, 0.85, 1.3)
+		SomDrift.pitch_scale = lerp(SomDrift.pitch_scale, target_pitch, 4.0 * delta)
 	else:
 		SmokeParticlesRight.emitting = false
 		SmokeParticlesLeft.emitting = false
@@ -255,6 +258,7 @@ func StartDrift():
 		Drifting = true
 		MinimumDrift = false
 		DriftTimer.start()
+		SomDrift.pitch_scale = randf_range(0.9, 1.1)
 		SomDrift.play()
 		change_smoke_color(DriftSmokeColor)
 		

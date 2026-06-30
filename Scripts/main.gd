@@ -14,6 +14,8 @@ extends Node3D
 @onready var controls_keyboard_only = $CanvasLayer/MenuUI/ControlsScreen/KeyboardOnly
 @onready var pause_gamepad = $CanvasLayer/MenuUI/PauseScreen/Gamepad
 @onready var pause_keyboard_only = $CanvasLayer/MenuUI/PauseScreen/KeyboardOnly
+@onready var volume_slider = $CanvasLayer/MenuUI/SettingsScreen/Volume/HSlider
+@onready var soundtrack = $Soundtrack
 @onready var hbox = $Control/HBoxContainer
 @onready var subviewport1 = $Control/HBoxContainer/SubViewportContainer1
 @onready var viewport1 = $Control/HBoxContainer/SubViewportContainer1/SubViewport
@@ -32,6 +34,7 @@ var last_position_p1 = 0
 var last_position_p2 = 0
 
 const SETTINGS_PATH = "user://settings.cfg"
+var master_bus_index = AudioServer.get_bus_index("Master")
 
 func _process(_delta):
 	if not race_manager.cars.is_empty():
@@ -48,7 +51,6 @@ func _update_hud():
 
 	label_pos2.text = "%dº" % pos2
 	label_laps2.text = "%d/%d" % [laps2, race_manager.total_laps]
-
 	if pos1 != last_position_p1 and last_position_p1 != 0:
 		_punch_scale(label_pos1)
 	if pos2 != last_position_p2 and last_position_p2 != 0:
@@ -83,6 +85,7 @@ func _ready():
 	$RaceManager.process_mode = Node.PROCESS_MODE_PAUSABLE
 	pause_screen.visible = false
 	_load_settings()
+	soundtrack.play()
 
 func _input(event):
 	var pause_action = "pause_gamepad" if car1.gamepad else "pause"
@@ -125,7 +128,7 @@ func _move_camera_to_showcase():
 
 	tween.tween_property(car1.SpringArm, "rotation:y", deg_to_rad(45.0), 1.5)
 	tween.tween_property(car1.SpringArm, "rotation:x", deg_to_rad(5.0), 1.5)
-	tween.tween_property(car1.SpringArm, "spring_length", 3.0, 1.5) 
+	tween.tween_property(car1.SpringArm, "spring_length", 3.0, 1.5)
 	tween.tween_property(car1.Cam, "fov", 40.0, 1.5)
 
 func _move_camera_to_menu():
@@ -161,11 +164,25 @@ func _on_restart_pressed() -> void:
 	get_tree().reload_current_scene()
 
 
+func _on_soundtrack_finished() -> void:
+	soundtrack.play()
+
+
 func _on_check_button_toggled(toggled_on: bool) -> void:
 	car1.gamepad = toggled_on
 	car2.gamepad = toggled_on
 	_update_control_visuals(toggled_on)
-	_save_settings(toggled_on)
+	_save_settings()
+
+func _on_h_slider_value_changed(value: float) -> void:
+	_apply_volume(value)
+	_save_settings()
+
+func _apply_volume(value: float) -> void:
+	var normalized = value / 100.0
+	var db = linear_to_db(normalized) if normalized > 0.0 else -80.0
+	AudioServer.set_bus_volume_db(master_bus_index, db)
+	AudioServer.set_bus_mute(master_bus_index, normalized <= 0.0)
 
 func _update_control_visuals(gamepad_on: bool) -> void:
 	label_keyboard.modulate.a = 0.4 if gamepad_on else 1.0
@@ -175,20 +192,26 @@ func _update_control_visuals(gamepad_on: bool) -> void:
 	pause_gamepad.visible = gamepad_on
 	pause_keyboard_only.visible = not gamepad_on
 
-func _save_settings(gamepad_on: bool) -> void:
+func _save_settings() -> void:
 	var config = ConfigFile.new()
-	config.set_value("controls", "gamepad", gamepad_on)
+	config.set_value("controls", "gamepad", car1.gamepad)
+	config.set_value("audio", "volume", volume_slider.value)
 	config.save(SETTINGS_PATH)
 
 func _load_settings() -> void:
 	var config = ConfigFile.new()
 	var gamepad_on = false
+	var volume = 50.0
 
 	var err = config.load(SETTINGS_PATH)
 	if err == OK:
 		gamepad_on = config.get_value("controls", "gamepad", false)
+		volume = config.get_value("audio", "volume", 100.0)
 
 	car1.gamepad = gamepad_on
 	car2.gamepad = gamepad_on
 	gamepad_check_button.set_pressed_no_signal(gamepad_on)
 	_update_control_visuals(gamepad_on)
+
+	volume_slider.set_value_no_signal(volume)
+	_apply_volume(volume)
