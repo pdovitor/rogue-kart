@@ -348,11 +348,11 @@ fov = 80.0
 
 [node name="SomDrift" type="AudioStreamPlayer" parent="." unique_id=1591051064]
 stream = ExtResource("4_0dspa")
-volume_db = -16.0
+volume_db = -29.0
 
 [node name="SomBoost" type="AudioStreamPlayer" parent="." unique_id=287241106]
 stream = ExtResource("5_h74ym")
-volume_db = -16.0
+volume_db = -29.0
 
 [connection signal="timeout" from="DriftTimer" to="." method="_on_drift_timer_timeout"]
 [connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]
