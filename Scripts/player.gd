@@ -22,8 +22,9 @@ extends Node3D
 @export var ChargedDriftSmokeColor : Gradient
 @export var player_id: int = 1
 
-
+var can_pause = false
 var game_started = false
+var gamepad = false
 
 var standard_scale = Vector3(1, 1, 1)
 var squash_scale = Vector3(1.4, 0.5, 1.4) # Achatado no impacto
@@ -77,6 +78,7 @@ func start_game():
 	tween.tween_property(Cam, "fov", base_fov, 1.8)
 
 	await tween.finished
+	can_pause = true
 	Ball.freeze = false
 	game_started = true
 
@@ -114,8 +116,8 @@ func _physics_process(delta):
 func _process(delta):
 	if not game_started:
 		return
-	var gas = Input.get_action_strength("p%d_accelerate" % player_id)
-	var brake = Input.get_action_strength("p%d_brake" % player_id)
+	var gas = Input.get_action_strength("p%d_accelerate%s" % [player_id, "_gamepad" if gamepad else ""])
+	var brake = Input.get_action_strength("p%d_brake%s" % [player_id, "_gamepad" if gamepad else ""])
 	var vel_atual = Ball.linear_velocity.length()
 	
 	var target_speed = (gas - brake) * acceleration
@@ -131,7 +133,7 @@ func _process(delta):
 	
 	speed_input = move_toward(speed_input, target_speed, pedal_response * delta)
 	
-	var steer_direction = Input.get_action_strength("p%d_steer_left" % player_id) - Input.get_action_strength("p%d_steer_right" % player_id)
+	var steer_direction = Input.get_action_strength("p%d_steer_left%s" % [player_id, "_gamepad" if gamepad else ""]) - Input.get_action_strength("p%d_steer_right%s" % [player_id, "_gamepad" if gamepad else ""])
 	
 	if speed_input < 0:
 		steer_direction = -steer_direction
@@ -150,7 +152,7 @@ func _process(delta):
 	RightWheel.rotation.y = 2.0 * rotate_input
 	LeftWheel.rotation.y = 2.0 * rotate_input
 	
-	if Input.is_action_just_pressed("p%d_drift" % player_id) and not Drifting and speed_input > 0 and CanDrift:
+	if Input.is_action_just_pressed("p%d_drift%s" % [player_id, "_gamepad" if gamepad else ""]) and not Drifting and speed_input > 0 and CanDrift:
 		Anim.play("Hop")
 		Ball.linear_velocity.y = 0 
 		Ball.apply_central_impulse(Vector3.UP * hop_force)
@@ -167,14 +169,14 @@ func _process(delta):
 	CarBody.rotation.y = lerp_angle(CarBody.rotation.y, angulo_visual_alvo, 5.0 * delta)
 
 	if Drifting:
-		var raw_steer = Input.get_action_strength("p%d_steer_left" % player_id) - Input.get_action_strength("p%d_steer_right" % player_id)
+		var raw_steer = Input.get_action_strength("p%d_steer_left%s" % [player_id, "_gamepad" if gamepad else ""]) - Input.get_action_strength("p%d_steer_right" % player_id)
 		
 		var forca_automatica = DriftDirection * deg_to_rad(steering * 0.8)
 		
 		var ajuste_jogador = raw_steer * deg_to_rad(steering * 0.5)
 		rotate_input = forca_automatica + ajuste_jogador
 
-	if Drifting and (Input.is_action_just_released("p%d_drift" % player_id) or speed_input < 0.5):
+	if Drifting and (Input.is_action_just_released("p%d_drift%s" % [player_id, "_gamepad" if gamepad else ""]) or speed_input < 0.5):
 		StopDrift()
 		
 	var velocidade_atual = Ball.linear_velocity.length()
@@ -253,7 +255,7 @@ func StartDrift():
 		DriftTimer.start()
 		change_smoke_color(DriftSmokeColor)
 		
-		var steer_direction = Input.get_action_strength("p%d_steer_left" % player_id) - Input.get_action_strength("p%d_steer_right" % player_id)
+		var steer_direction = Input.get_action_strength("p%d_steer_left%s" % [player_id, "_gamepad" if gamepad else ""]) - Input.get_action_strength("p%d_steer_right%s" % [player_id, "_gamepad" if gamepad else ""])
 		DriftDirection = sign(steer_direction)
 		if DriftDirection == 0:
 			DriftDirection = 1
