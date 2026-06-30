@@ -15,6 +15,18 @@
 [ext_resource type="PackedScene" uid="uid://dgcussd5dgu33" path="res://Scenes/car_hatchback.tscn" id="10_hptm8"]
 [ext_resource type="Texture2D" uid="uid://bxfead621yrma" path="res://Assets/botoes/button_square_flat.png" id="11_fdnlq"]
 [ext_resource type="Shader" uid="uid://cdg6d273me522" path="res://Scenes/stylized_sky.gdshader" id="15_wsu2k"]
+[ext_resource type="Script" uid="uid://nkeohvy6a8qu" path="res://Scenes/race_manager.gd" id="16_k12tt"]
+
+[sub_resource type="Curve3D" id="Curve3D_wsu2k"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0423889, 0, -80.767746, 0, 0, 0, 0, 0, 0, 2.8900146, 0, -139.8917, 0, 0, 0, 0, 0, 0, 90.107315, 0, -304.50446, 0, 0, 0, 0, 0, 0, 40.99051, 0, -390.20978, 0, 0, 0, 0, 0, 0, 4.9618683, 0, -416.07648, 0, 0, 0, 0, 0, 0, -41.22873, 0, -415.15265, 0, 0, 0, 0, 0, 0, -72.17642, 0, -387.4383, 0, 0, 0, 0, 0, 0, -84.64789, 0, -356.02875, 0, 0, 0, 0, 0, 0, -89.72885, 0, -304.2953, 0, 0, 0, 0, 0, 0, -98.96698, 0, -277.50473, 0, 0, 0, 0, 0, 0, -116.057495, 0, -253.02373, 0, 0, 0, 0, 0, 0, -131.76228, 0, -224.84747, 0, 0, 0, 0, 0, 0, -138.22897, 0, -187.89499, 0, 0, 0, 0, 0, 0, -127.143234, 0, -146.78537, 0, 0, 0, 0, 0, 0, -111.21621, 0, -110.60768, 0, 0, 0, 0, 0, 0, -98.282845, 0, -74.11713, 0, 0, 0, 0, 0, 0, -94.12571, 0, -39.012276, 0, 0, 0, 0, 0, 0, -105.67335, 0, 0.24971771, 0, 0, 0, 0, 0, 0, -127.38293, 0, 32.121223, 0, 0, 0, 0, 0, 0, -142.62857, 0, 63.03183, 0, 0, 0, 0, 0, 0, -141.24286, 0, 96.28905, 0, 0, 0, 0, 0, 0, -146.32382, 0, 133.70341, 0, 0, 0, 0, 0, 0, -149.55716, 0, 165.11302, 0, 0, 0, 0, 0, 0, -130.61902, 0, 197.90834, 0, 0, 0, 0, 0, 0, -96.71555, 0, 217.5308, 0, 0, 0, 0, 0, 0, -56.067833, 0, 216.60698, 0, 0, 0, 0, 0, 0, -13.572487, 0, 208.75462, 0, 0, 0, 0, 0, 0, 17.37519, 0, 182.88786, 0, 0, 0, 0, 0, 0, 29.384743, 0, 139.93062, 0, 0, 0, 0, 0, 0, 16.913292, 0, 88.19716, 0, 0, 0, 0, 0, 0, -0.7781372, 0, 31.670204),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 32
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k12tt"]
+size = Vector3(57.289825, 10.144562, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oda2d"]
 resource_name = "CurbeColor"
@@ -383,6 +395,164 @@ script = ExtResource("1_ynf5e")
 
 [node name="SouthLoop" type="Node3D" parent="." unique_id=1666833088]
 
+[node name="RacingLine" type="Path3D" parent="SouthLoop" unique_id=558567512]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 39.458633, 0, 83.714035)
+curve = SubResource("Curve3D_wsu2k")
+
+[node name="Checkpoint1" type="Area3D" parent="SouthLoop" unique_id=1104461131 groups=["checkpoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.686665, 2.081252, 41.768097)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint1" unique_id=607319651]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint2" type="Area3D" parent="SouthLoop" unique_id=1266258704 groups=["checkpoint"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.686665, 2.081252, -31.034729)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint2" unique_id=1374258293]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint3" type="Area3D" parent="SouthLoop" unique_id=1888464169 groups=["checkpoint"]]
+transform = Transform3D(0.9500102, 0, -0.31221884, 0, 1, 0, 0.31221884, 0, 0.9500102, 40.57626, 2.081252, -105.40211)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint3" unique_id=909417496]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint4" type="Area3D" parent="SouthLoop" unique_id=1698109547 groups=["checkpoint"]]
+transform = Transform3D(0.9500102, 0, -0.31221884, 0, 1, 0, 0.31221884, 0, 0.9500102, 83.67646, 2.081252, -168.7244)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint4" unique_id=125517710]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint5" type="Area3D" parent="SouthLoop" unique_id=1504542037 groups=["checkpoint"]]
+transform = Transform3D(0.9205049, 0, 0.39073116, 0, 1, 0, -0.39073116, 0, 0.9205049, 109.80125, 2.081252, -222.05348)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint5" unique_id=1876159086]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint6" type="Area3D" parent="SouthLoop" unique_id=1129789816 groups=["checkpoint"]]
+transform = Transform3D(0.7088571, 0, 0.7053522, 0, 1, 0, -0.7053522, 0, 0.7088571, 46.528564, 2.081252, -312.16718)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint6" unique_id=1939530415]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint7" type="Area3D" parent="SouthLoop" unique_id=446280159 groups=["checkpoint"]]
+transform = Transform3D(-0.63397497, 0, 0.7733537, 0, 1, 0, -0.7733537, 0, -0.63397497, -3.863922, -0.57137394, -304.70212)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint7" unique_id=925723541]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint8" type="Area3D" parent="SouthLoop" unique_id=816585482 groups=["checkpoint"]]
+transform = Transform3D(-0.9982244, 0, 0.05956781, 0, 1, 0, -0.05956781, 0, -0.9982244, -39.809273, -0.485734, -246.93983)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint8" unique_id=377562533]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint9" type="Area3D" parent="SouthLoop" unique_id=1239306369 groups=["checkpoint"]]
+transform = Transform3D(-0.9471096, 0, 0.32091066, 0, 1, 0, -0.32091066, 0, -0.9471096, -52.889458, 0.8270693, -166.31062)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint9" unique_id=611616783]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint10" type="Area3D" parent="SouthLoop" unique_id=1580040511 groups=["checkpoint"]]
+transform = Transform3D(-0.99775976, 0, 0.06690094, 0, 1, 0, -0.06690094, 0, -0.99775976, -76.088196, 0.8270693, -110.639984)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint10" unique_id=1706489668]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint11" type="Area3D" parent="SouthLoop" unique_id=215391119 groups=["checkpoint"]]
+transform = Transform3D(-0.98487455, 0, -0.17326996, 0, 1, 0, 0.17326996, 0, -0.98487455, -63.00808, 0.8270693, -52.744858)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint11" unique_id=1131846688]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint12" type="Area3D" parent="SouthLoop" unique_id=1527159434 groups=["checkpoint"]]
+transform = Transform3D(-0.99981916, 0, -0.019022852, 0, 1, 0, 0.019022852, 0, -0.99981916, -42.115456, 0.8270693, 11.374741)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint12" unique_id=835612381]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint13" type="Area3D" parent="SouthLoop" unique_id=259543303 groups=["checkpoint"]]
+transform = Transform3D(-0.99981916, 0, -0.019022852, 0, 1, 0, 0.019022852, 0, -0.99981916, -37.95859, 0.8270693, 63.209656)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint13" unique_id=1902481485]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint14" type="Area3D" parent="SouthLoop" unique_id=705384313 groups=["checkpoint"]]
+transform = Transform3D(-0.9945019, 0, 0.104719505, 0, 1, 0, -0.104719505, 0, -0.9945019, -73.30538, 2.066844, 121.606926)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint14" unique_id=1313568637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint15" type="Area3D" parent="SouthLoop" unique_id=1050441221 groups=["checkpoint"]]
+transform = Transform3D(-0.9945019, 0, 0.104719505, 0, 1, 0, -0.104719505, 0, -0.9945019, -87.1866, 2.066844, 184.62494)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint15" unique_id=2061599057]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint16" type="Area3D" parent="SouthLoop" unique_id=990345483 groups=["checkpoint"]]
+transform = Transform3D(-0.91161156, 0, -0.41105297, 0, 1, 0, 0.41105297, 0, -0.91161156, -87.1866, 2.066844, 245.86287)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint16" unique_id=160900225]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint17" type="Area3D" parent="SouthLoop" unique_id=417591362 groups=["checkpoint"]]
+transform = Transform3D(-0.5394324, 0, -0.842029, 0, 1, 0, 0.842029, 0, -0.5394324, -38.21386, 7.422929, 283.00052)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint17" unique_id=34734438]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint18" type="Area3D" parent="SouthLoop" unique_id=65022673 groups=["checkpoint"]]
+transform = Transform3D(0.15893346, 0, -0.9872893, 0, 1, 0, 0.9872893, 0, 0.15893346, 12.7916565, 9.559674, 274.73035)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint18" unique_id=545696787]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint19" type="Area3D" parent="SouthLoop" unique_id=969949898 groups=["checkpoint"]]
+transform = Transform3D(0.7856193, 0, -0.61871016, 0, 1, 0, 0.61871016, 0, 0.7856193, 47.206165, 7.8762445, 254.46658)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint19" unique_id=462066157]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint20" type="Area3D" parent="SouthLoop" unique_id=665529242 groups=["checkpoint"]]
+transform = Transform3D(0.9968817, 0, 0.078911364, 0, 1, 0, -0.078911364, 0, 0.9968817, 47.206165, 7.8762445, 213.50165)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint20" unique_id=1807425967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="Checkpoint21" type="Area3D" parent="SouthLoop" unique_id=1428726729 groups=["checkpoint"]]
+transform = Transform3D(0.9968817, 0, 0.078911364, 0, 1, 0, -0.078911364, 0, 0.9968817, 30.37875, 7.8762445, 168.1624)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint21" unique_id=358463738]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
+[node name="FinishLine" type="Area3D" parent="SouthLoop" unique_id=555520228 groups=["finish_line"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.686665, 2.081252, 92.94828)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/FinishLine" unique_id=389274925]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
+shape = SubResource("BoxShape3D_k12tt")
+
 [node name="CurbeInner" type="MeshInstance3D" parent="SouthLoop" unique_id=59149234]
 transform = Transform3D(-0.99993825, 0, 0.011110768, 0, 1, 0, -0.011110768, 0, -0.99993825, 0, 0, 0)
 mesh = SubResource("ArrayMesh_gp0yb")
@@ -408,6 +578,7 @@ mesh = SubResource("ArrayMesh_8gsh3")
 [node name="StaticBody3D" type="StaticBody3D" parent="SouthLoop/SouthLoop" unique_id=1461680671]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/SouthLoop/StaticBody3D" unique_id=1764169108]
+visible = false
 shape = SubResource("ConcavePolygonShape3D_fj0dj")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=23873339]
@@ -459,6 +630,54 @@ size_flags_horizontal = 4
 theme = SubResource("Theme_d1ilt")
 text = "PLAY"
 
+[node name="HUDPlayer1" type="Control" parent="CanvasLayer" unique_id=1805616459]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -52.0
+offset_right = 20.0
+offset_bottom = -52.0
+grow_vertical = 0
+
+[node name="LabelPosicao1" type="Label" parent="CanvasLayer/HUDPlayer1" unique_id=1652943392]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Posicao: 1"
+
+[node name="LabelVoltas1" type="Label" parent="CanvasLayer/HUDPlayer1" unique_id=829813177]
+layout_mode = 0
+offset_top = 24.0
+offset_right = 58.0
+offset_bottom = 47.0
+text = "Volta: 1"
+
+[node name="HUDPlayer2" type="Control" parent="CanvasLayer" unique_id=960786512]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 604.0
+offset_right = -40.0
+offset_bottom = 644.0
+grow_horizontal = 0
+
+[node name="LabelPosicao2" type="Label" parent="CanvasLayer/HUDPlayer2" unique_id=1683886044]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+horizontal_alignment = 2
+
+[node name="LabelVoltas2" type="Label" parent="CanvasLayer/HUDPlayer2" unique_id=378271105]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 40.0
+offset_bottom = 43.0
+horizontal_alignment = 2
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1281289413]
 transform = Transform3D(1, 0, 0, 0, 0.08675587, 0.9962295, 0, -0.9962295, 0.08675587, 0, 3442.139, 0)
 shadow_blur = 0.0
@@ -508,5 +727,9 @@ player_id = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=242407842]
 environment = SubResource("Environment_b3802")
+
+[node name="RaceManager" type="Node3D" parent="." unique_id=155972271 node_paths=PackedStringArray("path")]
+script = ExtResource("16_k12tt")
+path = NodePath("../SouthLoop/RacingLine")
 
 [connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]

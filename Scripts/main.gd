@@ -9,6 +9,28 @@ extends Node3D
 @onready var viewport2 = $Control/HBoxContainer/SubViewportContainer2/SubViewport
 @onready var subviewport2 = $Control/HBoxContainer/SubViewportContainer2
 
+@onready var race_manager = $RaceManager
+@onready var label_pos1 = $CanvasLayer/HUDPlayer1/LabelPosicao1
+@onready var label_laps1 = $CanvasLayer/HUDPlayer1/LabelVoltas1
+@onready var label_pos2 = $CanvasLayer/HUDPlayer2/LabelPosicao2
+@onready var label_laps2 = $CanvasLayer/HUDPlayer2/LabelVoltas2
+
+func _process(_delta):
+	if not race_manager.cars.is_empty():
+		_update_hud()
+
+func _update_hud():
+	var pos1 = race_manager.get_position(car1)
+	var laps1 = race_manager.get_laps(car1)
+	var pos2 = race_manager.get_position(car2)
+	var laps2 = race_manager.get_laps(car2)
+
+	label_pos1.text = "%dº lugar" % pos1
+	label_laps1.text = "Volta %d/%d" % [laps1, race_manager.total_laps]
+
+	label_pos2.text = "%dº lugar" % pos2
+	label_laps2.text = "Volta %d/%d" % [laps2, race_manager.total_laps]
+
 func _ready():
 	menu_ui.visible = true
 	viewport1.size = get_viewport().size

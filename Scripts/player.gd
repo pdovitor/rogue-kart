@@ -56,6 +56,7 @@ var max_length_add = 0.5
 
 func _ready():
 	game_started = false
+	Ball.freeze = true
 	SpringArm.global_position = Car.global_position + Vector3(-1.5, 1.25, 0)
 	SpringArm.rotation.y = deg_to_rad(150.0)
 	SpringArm.rotation.x = deg_to_rad(5.0)
@@ -63,6 +64,7 @@ func _ready():
 	Cam.fov = 60.0
 
 func start_game():
+	Ball.freeze = false 
 	SpringArm.global_position = Car.global_position + Vector3(0, 1.5, 0)
 
 	var tween = create_tween()
