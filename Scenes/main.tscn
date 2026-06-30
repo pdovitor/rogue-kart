@@ -35,6 +35,7 @@
 [ext_resource type="Texture2D" uid="uid://dw62r7apg77n3" path="res://Assets/icon_outline_circle.png" id="24_6vcvc"]
 [ext_resource type="Texture2D" uid="uid://1qrutgbcyh7r" path="res://Assets/arrow_basic_e_small.png" id="25_7k868"]
 [ext_resource type="Texture2D" uid="uid://dkr38btv451gl" path="res://Assets/arrow_basic_w_small.png" id="26_7k868"]
+[ext_resource type="AudioStream" uid="uid://dnv4gn1kc0fcp" path="res://Assets/mp3/519996__tictac9__interstellar-game-music-tictac9.wav" id="17_h1bgf"]
 
 [sub_resource type="Curve3D" id="Curve3D_wsu2k"]
 closed = true
@@ -1847,3 +1848,9 @@ path = NodePath("../SouthLoop/RacingLine")
 [connection signal="toggled" from="CanvasLayer/MenuUI/SettingsScreen/Controls/CheckButton" to="." method="_on_check_button_toggled"]
 [connection signal="pressed" from="CanvasLayer/MenuUI/PauseScreen/Back" to="." method="_on_back_pause_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuUI/PauseScreen/Restart" to="." method="_on_restart_pressed"]
+[node name="Soundtrack" type="AudioStreamPlayer" parent="." unique_id=207300116]
+stream = ExtResource("17_h1bgf")
+volume_db = -17.0
+autoplay = true
+
+[connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]

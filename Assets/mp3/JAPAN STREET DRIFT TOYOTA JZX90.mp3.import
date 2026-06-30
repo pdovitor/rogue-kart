@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dk53fn4a4rrm1"
+path="res://.godot/imported/JAPAN STREET DRIFT TOYOTA JZX90.mp3-7b81f8d7db5f5667f533c8ccd1d563fa.mp3str"
+
+[deps]
+
+source_file="res://Assets/mp3/JAPAN STREET DRIFT TOYOTA JZX90.mp3"
+dest_files=["res://.godot/imported/JAPAN STREET DRIFT TOYOTA JZX90.mp3-7b81f8d7db5f5667f533c8ccd1d563fa.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

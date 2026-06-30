@@ -15,6 +15,8 @@ extends Node3D
 @onready var GroundRay = $Car/GroundRay
 @onready var SmokeParticlesRight = $"Car/Model/body/SmokeParticlesRight"
 @onready var SmokeParticlesLeft = $"Car/Model/body/SmokeParticlesLeft"
+@onready var SomDrift = $SomDrift
+@onready var SomBoost = $SomBoost
 #@onready var SparkParticlesLeft = $"Car/Model/body/SparkLeft/GPUParticles3D"
 #@onready var SparkParticlesRight = $"Car/Model/body/SparkRight/GPUParticles3D"
 
@@ -253,6 +255,7 @@ func StartDrift():
 		Drifting = true
 		MinimumDrift = false
 		DriftTimer.start()
+		SomDrift.play()
 		change_smoke_color(DriftSmokeColor)
 		
 		var steer_direction = Input.get_action_strength("p%d_steer_left%s" % [player_id, "_gamepad" if gamepad else ""]) - Input.get_action_strength("p%d_steer_right%s" % [player_id, "_gamepad" if gamepad else ""])
@@ -265,9 +268,11 @@ func StopDrift():
 		Boost = DriftBoost
 		BoostTimer.start()
 		CanDrift = false
+		SomBoost.play()
 		#CarBody.scale = Vector3(0.7, 0.7, 1.5)
 	Drifting = false
 	MinimumDrift = false
+	SomDrift.stop()
 
 func _on_drift_timer_timeout(): # -> void
 	if Drifting:
