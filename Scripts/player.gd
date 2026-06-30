@@ -63,8 +63,7 @@ func _ready():
 	SpringArm.spring_length = 7.5
 	Cam.fov = 60.0
 
-func start_game():
-	Ball.freeze = false 
+func start_game(): 
 	SpringArm.global_position = Car.global_position + Vector3(0, 1.5, 0)
 
 	var tween = create_tween()
@@ -78,6 +77,7 @@ func start_game():
 	tween.tween_property(Cam, "fov", base_fov, 1.8)
 
 	await tween.finished
+	Ball.freeze = false
 	game_started = true
 
 func _physics_process(delta):
@@ -142,7 +142,7 @@ func _process(delta):
 		multiplicador_curva = vel_atual / 2.0 
 	else:
 		
-		var fator_vel = clamp(vel_atual / 30.0, 0.0, 1.0)
+		var fator_vel = clamp(vel_atual / 20.0, 0.0, 1.0)
 		multiplicador_curva = lerp(1.0, 0.6, fator_vel) 
 
 	rotate_input = deg_to_rad(steering) * steer_direction * multiplicador_curva

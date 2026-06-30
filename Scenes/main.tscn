@@ -20,7 +20,7 @@
 [sub_resource type="Curve3D" id="Curve3D_wsu2k"]
 closed = true
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1.0423889, 0, -80.767746, 0, 0, 0, 0, 0, 0, 2.8900146, 0, -139.8917, 0, 0, 0, 0, 0, 0, 90.107315, 0, -304.50446, 0, 0, 0, 0, 0, 0, 40.99051, 0, -390.20978, 0, 0, 0, 0, 0, 0, 4.9618683, 0, -416.07648, 0, 0, 0, 0, 0, 0, -41.22873, 0, -415.15265, 0, 0, 0, 0, 0, 0, -72.17642, 0, -387.4383, 0, 0, 0, 0, 0, 0, -84.64789, 0, -356.02875, 0, 0, 0, 0, 0, 0, -89.72885, 0, -304.2953, 0, 0, 0, 0, 0, 0, -98.96698, 0, -277.50473, 0, 0, 0, 0, 0, 0, -116.057495, 0, -253.02373, 0, 0, 0, 0, 0, 0, -131.76228, 0, -224.84747, 0, 0, 0, 0, 0, 0, -138.22897, 0, -187.89499, 0, 0, 0, 0, 0, 0, -127.143234, 0, -146.78537, 0, 0, 0, 0, 0, 0, -111.21621, 0, -110.60768, 0, 0, 0, 0, 0, 0, -98.282845, 0, -74.11713, 0, 0, 0, 0, 0, 0, -94.12571, 0, -39.012276, 0, 0, 0, 0, 0, 0, -105.67335, 0, 0.24971771, 0, 0, 0, 0, 0, 0, -127.38293, 0, 32.121223, 0, 0, 0, 0, 0, 0, -142.62857, 0, 63.03183, 0, 0, 0, 0, 0, 0, -141.24286, 0, 96.28905, 0, 0, 0, 0, 0, 0, -146.32382, 0, 133.70341, 0, 0, 0, 0, 0, 0, -149.55716, 0, 165.11302, 0, 0, 0, 0, 0, 0, -130.61902, 0, 197.90834, 0, 0, 0, 0, 0, 0, -96.71555, 0, 217.5308, 0, 0, 0, 0, 0, 0, -56.067833, 0, 216.60698, 0, 0, 0, 0, 0, 0, -13.572487, 0, 208.75462, 0, 0, 0, 0, 0, 0, 17.37519, 0, 182.88786, 0, 0, 0, 0, 0, 0, 29.384743, 0, 139.93062, 0, 0, 0, 0, 0, 0, 16.913292, 0, 88.19716, 0, 0, 0, 0, 0, 0, -0.7781372, 0, 31.670204),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 14.04686, 0, 0, 0, 0, 0, 0, 1.0423889, 0, -80.767746, 0, 0, 0, 0, 0, 0, 2.8900146, 0, -139.8917, 0, 0, 0, 0, 0, 0, 90.107315, 0, -304.50446, 0, 0, 0, 0, 0, 0, 40.99051, 0, -390.20978, 0, 0, 0, 0, 0, 0, 4.9618683, 0, -416.07648, 0, 0, 0, 0, 0, 0, -41.22873, 0, -415.15265, 0, 0, 0, 0, 0, 0, -72.17642, 0, -387.4383, 0, 0, 0, 0, 0, 0, -84.64789, 0, -356.02875, 0, 0, 0, 0, 0, 0, -89.72885, 0, -304.2953, 0, 0, 0, 0, 0, 0, -98.96698, 0, -277.50473, 0, 0, 0, 0, 0, 0, -116.057495, 0, -253.02373, 0, 0, 0, 0, 0, 0, -131.76228, 0, -224.84747, 0, 0, 0, 0, 0, 0, -138.22897, 0, -187.89499, 0, 0, 0, 0, 0, 0, -127.143234, 0, -146.78537, 0, 0, 0, 0, 0, 0, -111.21621, 0, -110.60768, 0, 0, 0, 0, 0, 0, -98.282845, 0, -74.11713, 0, 0, 0, 0, 0, 0, -94.12571, 0, -39.012276, 0, 0, 0, 0, 0, 0, -105.67335, 0, 0.24971771, 0, 0, 0, 0, 0, 0, -127.38293, 0, 32.121223, 0, 0, 0, 0, 0, 0, -142.62857, 0, 63.03183, 0, 0, 0, 0, 0, 0, -141.24286, 0, 96.28905, 0, 0, 0, 0, 0, 0, -146.32382, 0, 133.70341, 0, 0, 0, 0, 0, 0, -149.55716, 0, 165.11302, 0, 0, 0, 0, 0, 0, -130.61902, 0, 197.90834, 0, 0, 0, 0, 0, 0, -96.71555, 0, 217.5308, 0, 0, 0, 0, 0, 0, -56.067833, 0, 216.60698, 0, 0, 0, 0, 0, 0, -13.572487, 0, 208.75462, 0, 0, 0, 0, 0, 0, 17.37519, 0, 182.88786, 0, 0, 0, 0, 0, 0, 29.384743, 0, 139.93062, 0, 0, 0, 0, 0, 0, 16.913292, 0, 88.19716, 0, 0, 0, 0, 0, 0, -0.7781372, 0, 40.9065),
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
 point_count = 32
@@ -357,6 +357,14 @@ Button/styles/hover = SubResource("StyleBoxTexture_fdnlq")
 Button/styles/normal = SubResource("StyleBoxTexture_6iyac")
 Button/styles/pressed = SubResource("StyleBoxTexture_jkdf5")
 
+[sub_resource type="Theme" id="Theme_k12tt"]
+Label/font_sizes/font_size = 100
+Label/fonts/font = ExtResource("9_jkdf5")
+
+[sub_resource type="Theme" id="Theme_h1bgf"]
+Label/font_sizes/font_size = 24
+Label/fonts/font = ExtResource("9_jkdf5")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k12tt"]
 shader = ExtResource("15_wsu2k")
 shader_parameter/offset_horizon = -0.19999998807903996
@@ -519,7 +527,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
 shape = SubResource("BoxShape3D_k12tt")
 
 [node name="Checkpoint18" type="Area3D" parent="SouthLoop" unique_id=65022673 groups=["checkpoint"]]
-transform = Transform3D(0.15893346, 0, -0.9872893, 0, 1, 0, 0.9872893, 0, 0.15893346, 12.7916565, 9.559674, 274.73035)
+transform = Transform3D(0.15893346, 0, -0.9872893, 0, 1, 0, 0.9872893, 0, 0.15893346, 12.7916565, 7.1565943, 277.8921)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint18" unique_id=545696787]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
@@ -533,21 +541,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
 shape = SubResource("BoxShape3D_k12tt")
 
 [node name="Checkpoint20" type="Area3D" parent="SouthLoop" unique_id=665529242 groups=["checkpoint"]]
-transform = Transform3D(0.9968817, 0, 0.078911364, 0, 1, 0, -0.078911364, 0, 0.9968817, 47.206165, 7.8762445, 213.50165)
+transform = Transform3D(0.9968817, 0, 0.078911364, 0, 1, 0, -0.078911364, 0, 0.9968817, 47.206165, 7.8762445, 196.63022)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint20" unique_id=1807425967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
 shape = SubResource("BoxShape3D_k12tt")
 
 [node name="Checkpoint21" type="Area3D" parent="SouthLoop" unique_id=1428726729 groups=["checkpoint"]]
-transform = Transform3D(0.9968817, 0, 0.078911364, 0, 1, 0, -0.078911364, 0, 0.9968817, 30.37875, 7.8762445, 168.1624)
+transform = Transform3D(0.9968817, 0, 0.078911364, 0, 1, 0, -0.078911364, 0, 0.9968817, 30.37875, 7.8762445, 137.54387)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/Checkpoint21" unique_id=358463738]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
 shape = SubResource("BoxShape3D_k12tt")
 
 [node name="FinishLine" type="Area3D" parent="SouthLoop" unique_id=555520228 groups=["finish_line"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.686665, 2.081252, 92.94828)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 25.686665, 2.081252, 68.31863)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SouthLoop/FinishLine" unique_id=389274925]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.217941, 2.473709, 0)
@@ -635,48 +643,56 @@ layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 20.0
+offset_left = 27.0
 offset_top = -52.0
-offset_right = 20.0
+offset_right = 27.0
 offset_bottom = -52.0
 grow_vertical = 0
 
 [node name="LabelPosicao1" type="Label" parent="CanvasLayer/HUDPlayer1" unique_id=1652943392]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-text = "Posicao: 1"
+offset_left = 397.0
+offset_top = -62.0
+offset_right = 544.0
+offset_bottom = 78.0
+theme = SubResource("Theme_k12tt")
+text = "1º"
 
 [node name="LabelVoltas1" type="Label" parent="CanvasLayer/HUDPlayer1" unique_id=829813177]
 layout_mode = 0
-offset_top = 24.0
-offset_right = 58.0
-offset_bottom = 47.0
-text = "Volta: 1"
+offset_left = 336.0
+offset_right = 394.0
+offset_bottom = 24.0
+theme = SubResource("Theme_h1bgf")
+text = "0/3"
 
-[node name="HUDPlayer2" type="Control" parent="CanvasLayer" unique_id=960786512]
+[node name="HUDPlayer2" type="Control" parent="CanvasLayer" unique_id=1710553335]
 layout_mode = 3
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -80.0
-offset_top = 604.0
-offset_right = -40.0
-offset_bottom = 644.0
-grow_horizontal = 0
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 608.0
+offset_top = -50.0
+offset_right = 608.0
+offset_bottom = -50.0
+grow_vertical = 0
 
-[node name="LabelPosicao2" type="Label" parent="CanvasLayer/HUDPlayer2" unique_id=1683886044]
+[node name="LabelPosicao2" type="Label" parent="CanvasLayer/HUDPlayer2" unique_id=788586637]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
-horizontal_alignment = 2
+offset_left = 397.0
+offset_top = -62.0
+offset_right = 544.0
+offset_bottom = 78.0
+theme = SubResource("Theme_k12tt")
+text = "1º"
 
-[node name="LabelVoltas2" type="Label" parent="CanvasLayer/HUDPlayer2" unique_id=378271105]
+[node name="LabelVoltas2" type="Label" parent="CanvasLayer/HUDPlayer2" unique_id=634418429]
 layout_mode = 0
-offset_top = 20.0
-offset_right = 40.0
-offset_bottom = 43.0
-horizontal_alignment = 2
+offset_left = 336.0
+offset_right = 394.0
+offset_bottom = 24.0
+theme = SubResource("Theme_h1bgf")
+text = "0/3"
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1281289413]
 transform = Transform3D(1, 0, 0, 0, 0.08675587, 0.9962295, 0, -0.9962295, 0.08675587, 0, 3442.139, 0)
@@ -730,6 +746,7 @@ environment = SubResource("Environment_b3802")
 
 [node name="RaceManager" type="Node3D" parent="." unique_id=155972271 node_paths=PackedStringArray("path")]
 script = ExtResource("16_k12tt")
+total_laps = 2
 path = NodePath("../SouthLoop/RacingLine")
 
 [connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
