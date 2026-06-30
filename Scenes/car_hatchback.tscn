@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scripts/player.gd" id="1_0dspa"]
 [ext_resource type="Material" uid="uid://bx8qt36yrfiib" path="res://Shaders/car1_celshaded.tres" id="2_h74ym"]
-[ext_resource type="AudioStream" uid="uid://dk53fn4a4rrm1" path="res://Assets/mp3/JAPAN STREET DRIFT TOYOTA JZX90.mp3" id="4_0dspa"]
+[ext_resource type="AudioStream" uid="uid://dmom0bmrnwjpf" path="res://Assets/mp3/driftnovo.mp3" id="4_0dspa"]
 [ext_resource type="PackedScene" uid="uid://chu53sx4gme1e" path="res://Scenes/smoke_particles.tscn" id="5_8tt5y"]
 [ext_resource type="AudioStream" uid="uid://bikqhrdxha156" path="res://Assets/mp3/boost.mp3" id="5_h74ym"]
 

@@ -752,7 +752,7 @@ path = NodePath("../SouthLoop/RacingLine")
 
 [node name="Soundtrack" type="AudioStreamPlayer" parent="." unique_id=207300116]
 stream = ExtResource("17_h1bgf")
-volume_db = -15.0
+volume_db = -17.0
 autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
