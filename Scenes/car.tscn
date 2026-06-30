@@ -3,6 +3,8 @@
 [ext_resource type="Script" uid="uid://va0xom1ifocj" path="res://Scripts/player.gd" id="1_go66d"]
 [ext_resource type="Material" uid="uid://bx8qt36yrfiib" path="res://Shaders/car1_celshaded.tres" id="2_argdw"]
 [ext_resource type="PackedScene" uid="uid://chu53sx4gme1e" path="res://Scenes/smoke_particles.tscn" id="5_u41r7"]
+[ext_resource type="AudioStream" uid="uid://dk53fn4a4rrm1" path="res://Assets/mp3/JAPAN STREET DRIFT TOYOTA JZX90.mp3" id="6_aqss3"]
+[ext_resource type="AudioStream" uid="uid://bikqhrdxha156" path="res://Assets/mp3/boost.mp3" id="7_argdw"]
 [ext_resource type="Texture2D" uid="uid://rnby14qdn1wg" path="res://Assets/texture/Muzzle_Flash_3.png" id="7_y3wrf"]
 [ext_resource type="ArrayMesh" uid="uid://bvfxo6twkhiuv" path="res://Assets/objects/sm_muzzleplane.obj" id="8_argdw"]
 
@@ -431,6 +433,14 @@ margin = 5.0
 
 [node name="Camera3D" type="Camera3D" parent="SpringArm3D" unique_id=202241637]
 fov = 80.0
+
+[node name="SomDrift" type="AudioStreamPlayer" parent="." unique_id=998080690]
+stream = ExtResource("6_aqss3")
+volume_db = -16.0
+
+[node name="SomBoost" type="AudioStreamPlayer" parent="." unique_id=2000141206]
+stream = ExtResource("7_argdw")
+volume_db = -16.0
 
 [connection signal="timeout" from="DriftTimer" to="." method="_on_drift_timer_timeout"]
 [connection signal="timeout" from="BoostTimer" to="." method="_on_boost_timer_timeout"]

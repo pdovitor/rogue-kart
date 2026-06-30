@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bxfead621yrma" path="res://Assets/botoes/button_square_flat.png" id="11_fdnlq"]
 [ext_resource type="Shader" uid="uid://cdg6d273me522" path="res://Scenes/stylized_sky.gdshader" id="15_wsu2k"]
 [ext_resource type="Script" uid="uid://nkeohvy6a8qu" path="res://Scenes/race_manager.gd" id="16_k12tt"]
+[ext_resource type="AudioStream" uid="uid://dnv4gn1kc0fcp" path="res://Assets/mp3/519996__tictac9__interstellar-game-music-tictac9.wav" id="17_h1bgf"]
 
 [sub_resource type="Curve3D" id="Curve3D_wsu2k"]
 closed = true
@@ -748,5 +749,10 @@ environment = SubResource("Environment_b3802")
 script = ExtResource("16_k12tt")
 total_laps = 2
 path = NodePath("../SouthLoop/RacingLine")
+
+[node name="Soundtrack" type="AudioStreamPlayer" parent="." unique_id=207300116]
+stream = ExtResource("17_h1bgf")
+volume_db = -15.0
+autoplay = true
 
 [connection signal="pressed" from="CanvasLayer/MenuUI/Control/VBoxContainer/Button" to="." method="_on_button_pressed"]
