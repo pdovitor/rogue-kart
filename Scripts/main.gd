@@ -126,10 +126,10 @@ func _move_camera_to_showcase():
 	tween.set_trans(Tween.TRANS_CUBIC)
 	tween.set_parallel(true)
 
-	tween.tween_property(car1.SpringArm, "rotation:y", deg_to_rad(45.0), 1.5)
-	tween.tween_property(car1.SpringArm, "rotation:x", deg_to_rad(5.0), 1.5)
-	tween.tween_property(car1.SpringArm, "spring_length", 3.0, 1.5)
-	tween.tween_property(car1.Cam, "fov", 40.0, 1.5)
+	tween.tween_property(car1.SpringArm, "rotation:y", deg_to_rad(15.0), 1.5)
+	tween.tween_property(car1.SpringArm, "rotation:x", deg_to_rad(2.0), 1.5)
+	tween.tween_property(car1.SpringArm, "spring_length", 5.0, 1.5)
+	tween.tween_property(car1.Cam, "fov", 60.0, 1.5)
 
 func _move_camera_to_menu():
 	var tween = create_tween()

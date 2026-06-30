@@ -358,6 +358,13 @@ Label/fonts/font = ExtResource("9_jkdf5")
 Label/font_sizes/font_size = 24
 Label/fonts/font = ExtResource("9_jkdf5")
 
+[sub_resource type="Gradient" id="Gradient_k2e45"]
+offsets = PackedFloat32Array(0, 0.3417431)
+
+[sub_resource type="Gradient" id="Gradient_jwpg7"]
+offsets = PackedFloat32Array(0, 0.39102563, 0.97649574)
+colors = PackedColorArray(0, 0, 0, 1, 0.83311397, 0.2953822, 0.19729772, 1, 0.81418043, 0.67352825, 0.21043876, 1)
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k12tt"]
 shader = ExtResource("15_wsu2k")
 shader_parameter/offset_horizon = -0.19999998807903996
@@ -390,6 +397,9 @@ background_mode = 2
 sky = SubResource("Sky_h1bgf")
 ambient_light_source = 1
 reflected_light_source = 1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jwpg7"]
+size = Vector3(1000, 1000, 10)
 
 [node name="main" type="Node3D" unique_id=277975496]
 script = ExtResource("1_ynf5e")
@@ -596,7 +606,6 @@ size_flags_vertical = 0
 [node name="MenuUI" type="CanvasLayer" parent="CanvasLayer" unique_id=1896893887]
 
 [node name="MainScreen" type="Control" parent="CanvasLayer/MenuUI" unique_id=670144725]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -621,7 +630,8 @@ theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_outline_color = Color(0.4, 0.40784314, 0.5019608, 1)
 theme_override_constants/outline_size = 25
 theme_override_fonts/font = ExtResource("9_jkdf5")
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 75
+text = "\"ROGUEKART??\""
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MenuUI/MainScreen/VBoxContainer" unique_id=534542914]
 layout_mode = 2
@@ -647,6 +657,7 @@ theme = ExtResource("11_k12tt")
 text = "OPTIONS"
 
 [node name="ControlsScreen" type="Control" parent="CanvasLayer/MenuUI" unique_id=1559096490]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1230,6 +1241,7 @@ vertical_alignment = 1
 
 [node name="PauseScreen" type="Control" parent="CanvasLayer/MenuUI" unique_id=65769661]
 process_mode = 3
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -1816,8 +1828,8 @@ render_target_update_mode = 4
 
 [node name="Car" parent="Control/HBoxContainer/SubViewportContainer1/SubViewport" unique_id=1073571490 instance=ExtResource("1_jjgbg")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.321, 2.966, 82.224)
-DriftSmokeColor = null
-ChargedDriftSmokeColor = null
+DriftSmokeColor = SubResource("Gradient_k2e45")
+ChargedDriftSmokeColor = SubResource("Gradient_jwpg7")
 
 [node name="SubViewportContainer2" type="SubViewportContainer" parent="Control/HBoxContainer" unique_id=2006664226]
 visible = false
@@ -1831,8 +1843,8 @@ render_target_update_mode = 0
 
 [node name="Car" parent="Control/HBoxContainer/SubViewportContainer2/SubViewport" unique_id=601471333 instance=ExtResource("10_hptm8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 36.848927, 2.966, 86.252556)
-DriftSmokeColor = null
-ChargedDriftSmokeColor = null
+DriftSmokeColor = SubResource("Gradient_k2e45")
+ChargedDriftSmokeColor = SubResource("Gradient_jwpg7")
 player_id = 2
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=242407842]
@@ -1847,6 +1859,38 @@ path = NodePath("../SouthLoop/RacingLine")
 stream = ExtResource("17_h1bgf")
 volume_db = -17.0
 autoplay = true
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1924895949]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -8.898865)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=310704151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218.35017, 0, 395.09006)
+shape = SubResource("BoxShape3D_jwpg7")
+debug_color = Color(0.5372549, 0.5529412, 0.40392157, 1)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=5210837]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -205.29034, 0, -292.00464)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=553700176]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218.35017, 0, 395.09006)
+shape = SubResource("BoxShape3D_jwpg7")
+debug_color = Color(0.5372549, 0.5529412, 0.40392157, 1)
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=1511018115]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -573.0361, 0, -292.00464)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=1669944319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218.35017, 0, 395.09006)
+shape = SubResource("BoxShape3D_jwpg7")
+debug_color = Color(0.5372549, 0.5529412, 0.40392157, 1)
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="." unique_id=70213118]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -777.5971)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4" unique_id=516139812]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -218.35017, 0, 395.09006)
+shape = SubResource("BoxShape3D_jwpg7")
+debug_color = Color(0.5372549, 0.5529412, 0.40392157, 1)
 
 [connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Controls" to="." method="_on_controls_pressed"]
 [connection signal="pressed" from="CanvasLayer/MenuUI/MainScreen/VBoxContainer/HBoxContainer/Play" to="." method="_on_button_pressed"]
